@@ -63,9 +63,9 @@ const EditprobabilidadeAdm = (props) => {
     }
     let VALOR_BASE;
     if (data.valor < 10) {
-      VALOR_BASE = 900;
+      VALOR_BASE = 500;
     } else {
-      VALOR_BASE = 90;
+      VALOR_BASE = 50;
     }
     setIsLoading(true);
     axios
