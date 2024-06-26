@@ -1,0 +1,83 @@
+.Cliente_Maquinas_col {
+  padding: 20px;
+}
+
+.Cliente_Maquinas_staBlock {
+  background: #ffffff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+  border-radius: 9px;
+  position: relative;
+}
+
+.Cliente_Maquinas_staBlockLinkA {
+  color: #000000;
+}
+
+.Cliente_Maquinas_header {
+  display: flex;
+  align-items: center;
+}
+.Cliente_Maquinas_action {
+  display: flex;
+  align-items: center;
+}
+.Cliente_Maquinas_staBlockLink {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+}
+
+.Cliente_Maquinas_staBlockLink > div {
+  padding: 0 5px;
+}
+
+.Cliente_Maquinas_staBlockTitle {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27px;
+  padding: 10px 15px;
+}
+
+.Cliente_Maquinas_addbtn {
+  display: flex !important;
+  align-items: center;
+}
+
+.Cliente_Maquinas_addbtn span {
+  margin-left: 5px;
+}
+
+.Cliente_Maquinas_staBlockAmount {
+  flex: 1;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 66px;
+  color: #000000;
+  padding: 0 10px;
+}
+
+.Cliente_Maquinas_staBlockBottom img {
+  width: 100%;
+}
+
+.Cliente_Maquinas_table {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+  border-radius: 9px;
+  padding: 20px;
+  height: 100%;
+  position: relative;
+}
+
+.Cliente_Maquinas_table th.ant-table-cell {
+  font-weight: 700;
+}

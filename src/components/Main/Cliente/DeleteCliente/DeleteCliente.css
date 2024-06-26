@@ -1,0 +1,41 @@
+.Delete_Cliente_Content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+}
+
+.Delete_Cliente_Text {
+  width: 250px;
+  height: 36px;
+  text-align: center;
+  color: black;
+}
+
+.Delete_Cliente_Icon {
+  display: flex;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.Delete_Cliente_Btns {
+  display: flex;
+  gap: 2.93px;
+  justify-content: space-around;
+  margin-top: 40px;
+}
+
+.Delete_Cliente_Cancel_Btn {
+  border-radius: 4px;
+}
+
+.Delete_Cliente_Delete_Btn {
+  border-radius: 4px;
+  background-color: #fc4f44;
+}
+
+.Delete_Cliente_Delete_Btn:hover {
+  border-radius: 4px;
+  background-color: #fc4f44;
+}

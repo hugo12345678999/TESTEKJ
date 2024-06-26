@@ -1,0 +1,253 @@
+.Admin_Auth_container {
+  height: 100%;
+}
+
+.Admin_Auth_rowContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.Admin_Auth_rowContainer .ant-col {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.Admin_Auth_AuthForm {
+  /* padding: 50px; */
+  /* display: flex !important; */
+  align-items: center;
+  justify-content: center;
+}
+
+.Admin_Auth_authTitle {
+  display: flex;
+  align-items: center;
+}
+
+.Admin_Auth_authTitleIcon {
+  color: #4196dd;
+  height: 24px;
+}
+
+.Admin_Auth_authTitleText {
+  padding-left: 5px;
+  color: #2f3367;
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.Auth_authDescription {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #2f3367;
+  max-width: 320px;
+}
+
+.Admin_Auth_itemField {
+  padding: 10px 0px;
+}
+
+.Admin_Auth_itemFieldLabel {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #2f3367;
+}
+
+.Admin_Auth_itemField input {
+  border: 1px solid;
+  /*box-shadow: 0px 0px 0px 2px #FFDE88;*/
+  border-radius: 4px;
+  color: black;
+  /* background-color: transparent; */
+  /* color: #fff !important; */
+}
+
+.Admin_Auth_itemField .ant-input-password {
+  border: 1px solid;
+  background-color: transparent !important;
+  border-radius: 4px;
+}
+
+.Admin_Auth_itemField .ant-input-password svg path {
+  /* fill: #fff */
+}
+
+.Admin_Auth_itemField .Admin_Auth_itemFieldLabelCheckbox {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #afb6c2;
+}
+
+.Admin_Auth_itemField .Admin_Auth_itemFieldLabelCheckbox a {
+  color: #afb6c2;
+  text-decoration: underline;
+}
+
+.Admin_Auth_itemField .Admin_Auth_itemFieldError {
+  color: #e46772;
+  font-size: 14px;
+  padding: 2px 0;
+}
+
+.Admin_Auth_itemField input:-webkit-autofill,
+.Admin_Auth_itemField input:-webkit-autofill:hover,
+.Admin_Auth_itemField input:-webkit-autofill:focus,
+.Admin_Auth_itemField textarea:-webkit-autofill,
+.Admin_Auth_itemField textarea:-webkit-autofill:hover,
+.Admin_Auth_itemField textarea:-webkit-autofill:focus,
+.Admin_Auth_itemField select:-webkit-autofill,
+.Admin_Auth_itemField select:-webkit-autofill:hover,
+.Admin_Auth_itemField select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  /* -webkit-text-fill-color: #fff !important; */
+  transition: background-color 5000s ease-in-out 0s;
+  /*color: #fff!important;*/
+}
+
+.Admin_Auth_authSubmit {
+  margin-top: 20px;
+  background: #007dfa !important;
+  border-radius: 4px !important;
+  width: 100%;
+  border: none !important;
+  box-shadow: none !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  font-size: 18px;
+}
+
+.Admin_Auth_authSubmit:hover {
+  transform: scale(1.05);
+  background-color: rgba(0, 125, 250, 0.761);
+}
+
+.Auth_authFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.Auth_itemAuthFooter {
+  display: flex;
+  padding: 5px 0;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.Auth_itemAuthFooter > div {
+  padding: 0 5px;
+  color: #469ae2 !important;
+}
+
+.Auth_itemAuthFooter > a {
+  color: #469ae2 !important;
+  text-decoration: underline;
+}
+
+.Admin_Auth_successMessage {
+  color: #8fc727;
+  font-size: 14px;
+  padding: 10px 0;
+  text-align: center;
+  max-width: 320px;
+}
+
+.Admin_Auth_errorMessage {
+  color: #e46772;
+  font-size: 14px;
+  padding: 10px 0;
+  text-align: center;
+  max-width: 320px;
+}
+
+.Admin_Auth_errorMessage a {
+  color: #e46772;
+  text-decoration: underline;
+}
+
+.Admin_Auth_errorMessage a:hover {
+  color: #e46772;
+}
+
+.Admin_Auth_AuthImage {
+  color: #fff;
+  width: 100%;
+  /* margin-left: 240px; */
+  height: 100%;
+}
+
+.Admin_Auth_authBlock {
+  left: 20%;
+  width: 60%;
+  top: 25%;
+  position: relative;
+}
+
+.Admin_LogoTextImage {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #2f3367;
+  font-size: 30px;
+  font-weight: 500;
+  padding: 0px 10px;
+}
+
+.Admin_MediaIcons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  position: fixed; /* Changed from absolute to fixed for viewport-level positioning */
+  left: 20%;
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Adjust position to truly center the div */
+  width: auto; /* Width according to content */
+  bottom: 10%;
+}
+
+.Admin_Auth_SocialIcon {
+  font-size: 24px;
+  color: #2f3367;
+}
+
+.InstagramIcon {
+  margin-left: 80px; /* Adiciona uma margem à esquerda especificamente para o ícone do Instagram */
+}
+
+.WhatsIcon {
+  margin-left: 40px; /* Adiciona uma margem à esquerda especificamente para o ícone do Instagram */
+}
+.Admin_Auth_AuthImage {
+  position: relative;
+}
+
+@media only screen and (max-width: 1024px) {
+  .Admin_Auth_AuthForm {
+    padding: 0;
+    /* background: #292F4A; */
+  }
+
+  .Admin_Auth_AuthImage {
+    display: none !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .Admin_Auth_AuthImage {
+    display: none !important;
+  }
+  .Admin_MediaIcons {
+    left: 50%;
+  }
+}

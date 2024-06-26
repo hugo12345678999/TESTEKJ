@@ -1,0 +1,96 @@
+.Relatorio_staBlockTitle {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 30px;
+  padding: 10px 15px;
+}
+
+.Relatorio_Dashboard_col_tableLinkA {
+  color: #000000;
+}
+
+.Relatorio_Dashboard_col_tableLink {
+  position: absolute;
+  /* right: 10px; */
+  top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #878997;
+}
+
+.Relatorio_Dashboard_col_tableLink > div {
+  padding: 0 5px;
+}
+
+.Relatorio_right_side {
+}
+
+.Relatorio {
+  background: #fff;
+  margin: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  transition: transform 100ms ease-in-out;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Relatorio:hover {
+  transform: scale(1.05);
+}
+
+.Relatorio_left_side {
+  width: 100%;
+}
+
+.Relatorio_os_icon {
+  width: 120px;
+}
+
+.Relatorio_money_icon {
+  width: 97px;
+}
+
+.Relatorio_title {
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.Relatorio_title_row {
+  /* margin-right: 700px; */
+  /* gap: 10px; */
+}
+
+.Relatorio_value_row {
+  margin-top: 40px;
+}
+
+.Relatorio_inner_rows {
+  margin: 20px;
+}
+
+.Relatorio_title_col {
+  display: flex;
+  align-items: center;
+}
+
+.Relatorio_title_col_title {
+  margin-right: 5px;
+}
+
+.Relatorio_main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media only screen and (max-width: 800px) {
+  .Relatorio_Dashboard_col_table {
+    display: none !important;
+  }
+  .Relatorio_info {
+    display: block !important;
+  }
+}

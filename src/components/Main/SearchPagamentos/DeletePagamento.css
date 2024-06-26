@@ -1,0 +1,41 @@
+.Update_Pagamento_Content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+}
+
+.Update_Pagamento_Text {
+  width: 250px;
+  height: 36px;
+  text-align: center;
+  color: black;
+}
+
+.Update_Pagamento_Icon {
+  display: flex;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.Update_Pagamento_Btns {
+  display: flex;
+  gap: 2.93px;
+  justify-content: space-around;
+  margin-top: 40px;
+}
+
+.Update_Pagamento_Cancel_Btn {
+  border-radius: 4px;
+}
+
+.Update_Pagamento_Delete_Btn {
+  border-radius: 4px;
+  background-color: #fc4f44;
+}
+
+.Update_Pagamento_Delete_Btn:hover {
+  border-radius: 4px;
+  background-color: #fc4f44;
+}

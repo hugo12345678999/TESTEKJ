@@ -1,0 +1,24 @@
+.SignIn_textImage1 {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* color: #002AD1; */
+    color: white;
+}
+
+.SignIn_textTitle {
+    font-weight: 700;
+    font-size: 40px;
+    text-align: left;
+}
+
+.SignIn_textDescription {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 44px;
+    text-align: left;
+    max-width: 500px;
+}

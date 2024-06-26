@@ -1,0 +1,20 @@
+.NotFoundWrapper {
+    background: #1E1E2E;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.NotFoundWrapper .NotFoundText {
+    color: #fff;
+    font-size: 2rem;
+}
+
+.NotFoundGoHome {
+    color: #fff;
+    font-size: 1rem;
+}

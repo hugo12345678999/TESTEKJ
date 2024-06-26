@@ -1,0 +1,96 @@
+.AddCliente_container {
+}
+
+.AddCliente_header {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.AddCliente_header_title {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27px;
+}
+
+.AddCliente_header_back {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  text-decoration: underline;
+  color: #1f384c;
+  cursor: pointer;
+}
+
+.AddCliente_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  padding: 30px;
+}
+
+.AddCliente_itemField {
+  padding: 10px 0px;
+  width: 100%;
+}
+
+.AddCliente_itemFieldLabel {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.AddCliente_itemField input {
+  border: 1px solid #55b962;
+  /*box-shadow: 0px 0px 0px 2px #FFDE88;*/
+  border-radius: 4px;
+  /*color: black;*/
+  background-color: rgba(242, 242, 242, 0.4);
+  /* color: #fff !important; */
+}
+
+.ant-picker {
+  width: 100%;
+}
+
+.AddCliente_itemField input .AddCliente_inputError {
+  border: 1px solid #e46772;
+}
+
+.AddCliente_saveBtn {
+  margin-top: 20px;
+  background-color: #0c8ce9;
+  color: #fff;
+  border-radius: 4px;
+  /*padding: 10px;*/
+  height: 40px;
+}
+
+.AddCliente_saveBtn:hover {
+  background-color: #0c8ce9;
+  color: #fff;
+}
+
+.AddCliente_itemFieldError {
+  color: #e46772;
+  font-size: 14px;
+  padding: 2px 0;
+}
+
+.AddCliente_Label_Icon {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.AddCliente_Icon {
+  width: 22px;
+  margin-left: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.AddCliente_Reload_Icon {
+  cursor: pointer;
+}

@@ -1,0 +1,243 @@
+.Auth_container {
+  height: 100%;
+  /* background-color: #002AD1; */
+}
+
+.Auth_rowContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.Auth_rowContainer .ant-col {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.Auth_colAuthForm {
+  padding: 50px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .Auth_authBlock {
+    background: #24221F;
+    border-radius: 4px;
+    padding: 50px 100px;
+} */
+
+.Auth_authTitle {
+  display: flex;
+  align-items: center;
+}
+
+.Auth_authTitleIcon {
+  color: #4196dd;
+  height: 24px;
+}
+
+.Auth_authTitleText {
+  padding-left: 5px;
+  color: #2f3367;
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.Auth_authDescription {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #2f3367;
+  max-width: 320px;
+}
+
+.Auth_itemField {
+  padding: 10px 0px;
+}
+
+.Auth_itemFieldLabel {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #2f3367;
+}
+
+.Auth_itemField input {
+  border: 1px solid;
+  /*box-shadow: 0px 0px 0px 2px #FFDE88;*/
+  border-radius: 4px;
+  color: black;
+  /* background-color: transparent; */
+  /* color: #fff !important; */
+}
+
+.Auth_itemField .ant-input-password {
+  border: 1px solid;
+  background-color: transparent !important;
+  border-radius: 4px;
+}
+
+.Auth_itemField .ant-input-password svg path {
+  /* fill: #fff */
+}
+
+.Auth_itemField .Auth_itemFieldLabelCheckbox {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #afb6c2;
+}
+
+.Auth_itemField .Auth_itemFieldLabelCheckbox a {
+  color: #afb6c2;
+  text-decoration: underline;
+}
+
+.Auth_itemField .Auth_itemFieldError {
+  color: #e46772;
+  font-size: 14px;
+  padding: 2px 0;
+}
+
+.Auth_itemField input:-webkit-autofill,
+.Auth_itemField input:-webkit-autofill:hover,
+.Auth_itemField input:-webkit-autofill:focus,
+.Auth_itemField textarea:-webkit-autofill,
+.Auth_itemField textarea:-webkit-autofill:hover,
+.Auth_itemField textarea:-webkit-autofill:focus,
+.Auth_itemField select:-webkit-autofill,
+.Auth_itemField select:-webkit-autofill:hover,
+.Auth_itemField select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  /* -webkit-text-fill-color: #fff !important; */
+  transition: background-color 5000s ease-in-out 0s;
+  /*color: #fff!important;*/
+}
+
+.Auth_authSubmit {
+  margin-top: 20px;
+  background: #007dfa !important;
+  border-radius: 4px !important;
+  width: 100%;
+  border: none !important;
+  box-shadow: none !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  font-size: 18px;
+}
+
+.Auth_authSubmit:hover {
+  transform: scale(1.05);
+  background-color: rgba(0, 125, 250, 0.761);
+}
+
+.Auth_authFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.Auth_itemAuthFooter {
+  display: flex;
+  padding: 5px 0;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.Auth_itemAuthFooter > div {
+  padding: 0 5px;
+  color: #469ae2 !important;
+}
+
+.Auth_itemAuthFooter > a {
+  color: #469ae2 !important;
+  text-decoration: underline;
+}
+
+.Auth_successMessage {
+  color: #8fc727;
+  font-size: 14px;
+  padding: 10px 0;
+  text-align: center;
+  max-width: 320px;
+}
+
+.Auth_errorMessage {
+  color: #e46772;
+  font-size: 14px;
+  padding: 10px 0;
+  text-align: center;
+  max-width: 320px;
+}
+
+.Auth_errorMessage a {
+  color: #e46772;
+  text-decoration: underline;
+}
+
+.Auth_errorMessage a:hover {
+  color: #e46772;
+}
+
+.Auth_authImage {
+  color: #fff;
+  width: 100%;
+  /* margin-left: 240px; */
+  height: 100%;
+}
+
+.CenteredText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #ffffff; /* Cor do texto */
+  font-size: 36px;
+  font-weight: 500; /* Tamanho da fonte */
+  /* Adicione outros estilos conforme necessário */
+}
+
+.SocialIcon {
+  font-size: 24px; /* Tamanho do ícone social */
+  top: 90%;
+  left: 30%;
+  position: absolute;
+  margin-right: 10px; /* Espaçamento entre ícones sociais (ajuste conforme necessário) */
+  color: #ffffff; /* Cor dos ícones sociais */
+  transition: color 0.3s ease; /* Efeito de transição de cor ao passar o mouse */
+}
+
+.SocialIcon:hover {
+  color: #007bff; /* Cor ao passar o mouse (ajuste conforme necessário) */
+}
+
+.InstagramIcon {
+  margin-left: 80px; /* Adiciona uma margem à esquerda especificamente para o ícone do Instagram */
+}
+
+.WhatsIcon {
+  margin-left: 40px; /* Adiciona uma margem à esquerda especificamente para o ícone do Instagram */
+}
+.Auth_colAuthImage {
+  position: relative;
+}
+
+@media only screen and (max-width: 1024px) {
+  .Auth_colAuthForm {
+    padding: 0;
+    /* background: #292F4A; */
+  }
+
+  .Auth_colAuthImage {
+    display: none !important;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  .Auth_colAuthImage {
+    display: none !important;
+  }
+}

@@ -1,0 +1,86 @@
+.Trocar_header {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Trocar_header_title {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27px;
+}
+
+.Trocar_header_back {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  text-decoration: underline;
+  color: #1f384c;
+  cursor: pointer;
+}
+
+.Trocar_header_back {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  text-decoration: underline;
+  color: #1f384c;
+  border: none;
+}
+
+.Trocar_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  padding: 30px;
+}
+
+.Trocar_itemField {
+  padding: 10px 0px;
+  width: 100%;
+}
+
+.Trocar_itemFieldLabel {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.Trocar_itemField input {
+  border: 1px solid #55b962;
+  /*box-shadow: 0px 0px 0px 2px #FFDE88;*/
+  border-radius: 4px;
+  /*color: black;*/
+  background-color: rgba(242, 242, 242, 0.4);
+  /* color: #fff !important; */
+}
+
+.ant-picker {
+  width: 100%;
+}
+
+.Trocar_itemField input .Trocar_inputError {
+  border: 1px solid #e46772;
+}
+
+.Trocar_saveBtn {
+  margin-top: 20px;
+  background-color: #0c8ce9;
+  color: #fff;
+  border-radius: 4px;
+  /*padding: 10px;*/
+  height: 40px;
+}
+
+.Trocar_saveBtn:hover {
+  background-color: #0c8ce9;
+  color: #fff;
+}
+
+.Trocar_itemFieldError {
+  color: #e46772;
+  font-size: 14px;
+  padding: 2px 0;
+}

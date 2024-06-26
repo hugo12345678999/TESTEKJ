@@ -1,0 +1,168 @@
+.PagamentosSearch_container {
+  padding: 20px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  height: 100%;
+}
+.PagamentosSearch_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.PagamentosSearch_header_left {
+  display: flex;
+  align-items: center;
+}
+
+.PagamentosSearch_header_left > * {
+  margin-right: 10px;
+}
+
+.PagamentosSearch_header_editBtn {
+  display: flex !important;
+  align-items: center;
+}
+
+.PagamentosSearch_header_editBtn span {
+  margin-left: 5px;
+}
+
+.PagamentosSearch_header_back {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  text-decoration: underline;
+  color: #1f384c;
+}
+
+.PagamentosSearch_description {
+  margin-left: 25px;
+}
+
+.PagamentosSearch_QR_Icon {
+  width: 82px;
+  height: 72px;
+  float: right;
+}
+
+/* .FornecedorSearchCanais_title {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 35px;
+} */
+
+/* .FornecedorSearchCanais_header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+} */
+
+/* .FornecedorSearchCanais_search {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    max-width: 100%;
+} */
+
+/* .FornecedorSearchCanais_inputSearch {
+    background: #F5F5F5!important;
+    border-radius: 15px!important;
+    height: unset!important;
+    padding: 12px 10px!important;
+    border: none!important;
+    width: 400px!important;
+} */
+
+/* .FornecedorSearchCanais_search img {
+    height: 36px;
+    width: 36px;
+    margin-left: 5px;
+    cursor: pointer;
+} */
+
+.FornecedorSearchCanais_btnSubmit {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #4169e1 !important;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15) !important;
+  color: #ffffff !important;
+  margin-right: 10px;
+  padding: 7px 40px !important;
+  height: unset !important;
+  font-size: 18px;
+}
+
+.PagamentosSearch_content {
+  padding: 20px;
+}
+
+.PagamentosSearch_titleList {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 18px;
+  line-height: 28px;
+  color: #52525b;
+  margin-right: 100px;
+}
+
+.PagamentosSearch_titleList_main {
+  display: flex;
+}
+
+.PagamentosSearch_datePicker {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  border-radius: 10px;
+}
+
+.PagamentosSearch_nbList {
+  margin-left: 5px;
+  background: #e5e7eb;
+  color: #3182ce;
+  border-radius: 4px;
+  padding: 2px 5px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.PagamentosSearch_body {
+  position: relative;
+}
+
+.PagamentosSearch_QR_Btn {
+  text-decoration: none;
+}
+
+/* .FornecedorSearchCanais_content table th.ant-table-cell:last-child {
+    text-align: right;
+} */
+
+.Dashboard_staBlockTitle {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27px;
+  padding: 10px 15px;
+}
+
+@media only screen and (max-width: 800px) {
+  .PagamentosSearch_datePicker {
+    margin-bottom: 10px;
+  }
+
+  .PagamentosSearch_body {
+    position: relative;
+    margin-left: -30px;
+    width: 100%;
+  }
+
+  .PagamentosSearch_titleList {
+    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}

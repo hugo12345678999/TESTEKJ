@@ -1,0 +1,174 @@
+.Edit_Cliente_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  padding: 30px;
+}
+
+.Edit_Cliente_itemField {
+  padding: 10px 0px;
+  width: 100%;
+}
+
+.Edit_Cliente_itemFieldLabel {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.Edit_Cliente_itemField input {
+  border: 1px solid #55b962;
+  /*box-shadow: 0px 0px 0px 2px #FFDE88;*/
+  border-radius: 4px;
+  /*color: black;*/
+  background-color: rgba(242, 242, 242, 0.4);
+  /* color: #fff !important; */
+}
+
+.Edit_Cliente_itemField input .Edit_Cliente_inputError {
+  border: 1px solid #e46772;
+}
+
+.Edit_Cliente_itemFieldError {
+  color: #e46772;
+  font-size: 14px;
+  padding: 2px 0;
+}
+
+.Edit_Cliente_saveBtn {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #0074db;
+  color: #fff;
+  border-radius: 8px;
+  /*padding: 10px;*/
+  height: 40px;
+}
+
+.Edit_Cliente_saveBtn:hover {
+  background-color: #0074db;
+  color: #fff;
+}
+.Edit_Cliente_deleteBtn {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #db0000;
+  color: #fff;
+  border-radius: 8px;
+  /*padding: 10px;*/
+  height: 40px;
+}
+
+.Edit_Cliente_deleteBtn:hover {
+  background-color: #db0000;
+  color: #fff;
+}
+.Edit_Cliente_ResetBtn {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #667085;
+  color: #fff;
+  border-radius: 8px;
+  /*padding: 10px;*/
+  height: 40px;
+}
+
+.Edit_Cliente_ResetBtn:hover {
+  background-color: #667085;
+  color: #fff;
+}
+
+.Edit_Cliente_header_back {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  text-decoration: underline;
+  color: #1f384c;
+  border: none;
+}
+
+.Edit_Cliente_header_HelpPage {
+  border: none;
+}
+
+.Edit_Cliente_storeLabel {
+  display: flex;
+}
+
+.Edit_Cliente_Icon {
+  width: 23px;
+  height: 23px;
+  margin-left: 7px;
+}
+
+.Edit_Cliente_container {
+  padding: 20px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  height: 100%;
+}
+
+.Edit_Cliente_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Edit_Cliente_header_left {
+  display: flex;
+  align-items: center;
+}
+
+.Edit_Cliente_header_left > * {
+  margin-right: 10px;
+}
+
+.Edit_Cliente_editBtn {
+  display: flex !important;
+  align-items: center;
+}
+
+.Edit_Cliente_editBtn span {
+  margin-left: 5px;
+}
+
+.Edit_Cliente_back {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  text-decoration: underline;
+  color: #1f384c;
+}
+
+.Edit_Cliente_staBlockTitle {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27px;
+  padding: 10px 15px;
+}
+
+.Edit_Cliente_Reset_Icon_Title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Edit_Cliente_Reset_Icon {
+  width: 25px;
+  margin-right: 20px;
+  color: #fff;
+}
+
+.Edit_Cliente_Icon {
+  cursor: pointer;
+  width: 22px;
+  margin-left: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.Edit_Cliente_Label_Icon {
+  display: flex;
+  align-items: center;
+}

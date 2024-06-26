@@ -1,0 +1,89 @@
+.Admin_Update_Pagamento_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  padding: 30px;
+}
+
+.Admin_Update_Pagamento_itemField {
+  padding: 10px 0px;
+  width: 100%;
+}
+
+.Admin_Update_Pagamento_itemFieldLabel {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.Admin_Update_Pagamento_itemField input {
+  border: 1px solid #55b962;
+  /*box-shadow: 0px 0px 0px 2px #FFDE88;*/
+  border-radius: 4px;
+  /*color: black;*/
+  background-color: rgba(242, 242, 242, 0.4);
+  /* color: #fff !important; */
+}
+
+.Admin_Update_Pagamento_itemField input .Admin_Update_Pagamento_inputError {
+  border: 1px solid #e46772;
+}
+
+.Admin_Update_Pagamento_itemFieldError {
+  color: #e46772;
+  font-size: 14px;
+  padding: 2px 0;
+}
+
+.Admin_Update_Pagamento_saveBtn {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #0074db;
+  color: #fff;
+  border-radius: 8px;
+  /*padding: 10px;*/
+  height: 40px;
+}
+
+.Admin_Update_Pagamento_saveBtn:hover {
+  background-color: #0074db;
+  color: #fff;
+}
+.Admin_Update_Pagamento_deleteBtn {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #db0000;
+  color: #fff;
+  border-radius: 8px;
+  /*padding: 10px;*/
+  height: 40px;
+}
+
+.Admin_Update_Pagamento_deleteBtn:hover {
+  background-color: #db0000;
+  color: #fff;
+}
+
+.Admin_EditPagamentos_header_back {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  text-decoration: underline;
+  color: #1f384c;
+  border: none;
+}
+
+.Admin_EditPagamentos_header_HelpPage {
+  border: none;
+}
+
+.Admin_Edit_Pagamento_storeLabel {
+  display: flex;
+}
+
+.Admin_Edit_Pagamento_Icon {
+  width: 23px;
+  height: 23px;
+  margin-left: 7px;
+}

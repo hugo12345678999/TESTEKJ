@@ -1,0 +1,54 @@
+.Help_Page_Href {
+  font-weight: 700;
+  color: black;
+  text-decoration: underline;
+}
+.Help_Page_Href:hover {
+  font-weight: 700;
+  color: black;
+  text-decoration: underline;
+}
+
+.Help_Page_Title {
+  font-size: 38.49px;
+  text-align: center;
+  line-height: 41.06px;
+  color: black;
+  margin: 50px 0px;
+}
+
+.Help_Page_Point {
+  margin: 50px 0px;
+}
+
+.Help_Page_Point_Title {
+  font-size: 20px;
+  line-height: 41.06px;
+  color: black;
+  font-weight: 400;
+}
+
+.Help_Page_Image {
+  display: flex;
+  justify-content: center;
+}
+
+.Help_Page_Point_Image {
+  width: 50%;
+  height: 388px;
+}
+
+.Help_Page_header_back {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  text-decoration: underline;
+  color: #1f384c;
+  border: none;
+}
+
+@media only screen and (min-width: 853px) {
+  .Help_Page_main {
+    margin: 10px 200px;
+  }
+}

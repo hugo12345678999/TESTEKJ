@@ -1,0 +1,114 @@
+.Cliente_Dashboard_header {
+  display: flex;
+  align-items: center;
+}
+.Cliente_Dashboard_action {
+  display: flex;
+  align-items: center;
+}
+
+.Cliente_Dashboard_staBlockTitle {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27px;
+  padding: 10px 15px;
+}
+
+.Cliente_Dashboard_addbtn {
+  display: flex !important;
+  align-items: center;
+}
+
+.Cliente_Dashboard_addbtn span {
+  margin-left: 5px;
+}
+
+.Cliente_Dashboard_col {
+  margin: 0px 2%;
+}
+
+.Cliente_Dashboard_col_tableLinkA {
+  color: #000000;
+}
+
+.Cliente_Dashboard_col_tableLink {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #878997;
+}
+
+.Cliente_Dashboard_col_tableLink > div {
+  padding: 0 5px;
+}
+
+.Cliente_WarningMsgSpan {
+  display: flex;
+  margin-right: 10px;
+  align-items: flex-end;
+  justify-content: flex-end;
+  color: red;
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 800px) {
+  .Cliente_Dashboard_col_table {
+    display: none !important;
+  }
+  .Cliente-info {
+    display: block !important;
+  }
+  .Cliente-footer {
+    display: block !important;
+  }
+}
+
+.Cliente {
+  background: #fff;
+  margin: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  transition: transform 100ms ease-in-out;
+  padding: 20px;
+}
+
+.Cliente:hover {
+  transform: scale(1.05);
+}
+
+.Cliente img {
+  max-width: 100%;
+}
+
+.Cliente-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Cliente-email {
+  font-size: 20px;
+}
+
+.Cliente-maquina {
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+.Cliente-type-info {
+  display: flex;
+  gap: 20px;
+  font-size: 20px;
+}
+
+.Cliente-type-val {
+  font-weight: 800;
+}
+
+.Cliente-footer {
+  display: flex;
+  margin-top: 70px;
+  gap: 40px;
+}

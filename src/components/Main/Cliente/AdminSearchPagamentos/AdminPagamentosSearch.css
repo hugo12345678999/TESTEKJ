@@ -1,0 +1,130 @@
+.Admin_PagamentosSearch_container {
+  padding: 20px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  height: 100%;
+}
+.Admin_PagamentosSearch_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Admin_PagamentosSearch_header_left {
+  display: flex;
+  align-items: center;
+}
+
+.Admin_PagamentosSearch_header_left > * {
+  margin-right: 10px;
+}
+
+.Admin_PagamentosSearch_header_editBtn {
+  display: flex !important;
+  align-items: center;
+}
+
+.Admin_PagamentosSearch_header_editBtn span {
+  margin-left: 5px;
+}
+
+.Admin_PagamentosSearch_header_back {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  text-decoration: underline;
+  color: #1f384c;
+  border: none;
+}
+
+.Admin_PagamentosSearch_description {
+  margin-left: 25px;
+}
+
+.Admin_PagamentosSearch_QR_Icon {
+  width: 82px;
+  height: 72px;
+  float: right;
+}
+
+.FornecedorSearchCanais_btnSubmit {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #4169e1 !important;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15) !important;
+  color: #ffffff !important;
+  margin-right: 10px;
+  padding: 7px 40px !important;
+  height: unset !important;
+  font-size: 18px;
+}
+
+.Admin_PagamentosSearch_content {
+  padding: 20px;
+}
+
+.Admin_PagamentosSearch_titleList {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 18px;
+  line-height: 28px;
+  color: #52525b;
+  margin-right: 100px;
+}
+
+.Admin_PagamentosSearch_titleList_main {
+  display: flex;
+}
+
+.Admin_PagamentosSearch_datePicker {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  border-radius: 10px;
+}
+
+.Admin_PagamentosSearch_nbList {
+  margin-left: 5px;
+  background: #e5e7eb;
+  color: #3182ce;
+  border-radius: 4px;
+  padding: 2px 5px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.Admin_PagamentosSearch_body {
+  position: relative;
+}
+
+.PagamentosSearch_QR_Btn {
+  text-decoration: none;
+}
+
+.Admin_Dashboard_staBlockTitle {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27px;
+  padding: 10px 15px;
+}
+
+@media only screen and (max-width: 800px) {
+  .Admin_PagamentosSearch_datePicker {
+    margin-bottom: 10px;
+  }
+
+  .Admin_PagamentosSearch_body {
+    position: relative;
+    margin-left: -30px;
+    width: 100%;
+  }
+
+  .Admin_PagamentosSearch_titleList {
+    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}
