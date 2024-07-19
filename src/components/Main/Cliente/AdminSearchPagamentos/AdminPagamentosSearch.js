@@ -71,7 +71,7 @@ const AdminPagamentosSearch = (props) => {
           },
         })
         .then((res) => {
-          console.log(res.data); // Verificar a estrutura dos dados recebidos
+          console.log(res.data); // Verificar a estrutura dos dados recebidosjgit
           setLoadingTable(false);
           setEstornos(res.data.estornos);
           setCash(res?.data?.cash);
