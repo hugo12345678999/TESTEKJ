@@ -36,6 +36,7 @@ const AdminPagamentosSearch = (props) => {
   const [estornos, setEstornos] = useState("");
   const [probabilidade, setprobabilidade] = useState("");
   const [estoque, setEstoque] = useState("");
+  const [contadorcredito, setContadorCredito] = useState("");
   const [estoque2, setEstoque2] = useState("");
   const [estoque3, setEstoque3] = useState("");
   const [estoque4, setEstoque4] = useState("");
@@ -76,6 +77,7 @@ const AdminPagamentosSearch = (props) => {
           setCash(res?.data?.cash);
           setprobabilidade(res?.data?.probabilidade);
           setEstoque(res?.data?.estoque);
+          setContadorCredito(res?.data?.estoque);
           setEstoque2(res?.data?.estoque2);
           setEstoque3(res?.data?.estoque3);
           setEstoque4(res?.data?.estoque4);
@@ -371,7 +373,10 @@ const AdminPagamentosSearch = (props) => {
               <div className="Admin_PagamentosSearch_nbList">
                 {estoque ?? "-"}
               </div>
-             
+              <div style={{ marginLeft: "1px" }}>CONTADOR CREDITO</div>
+              <div className="Admin_PagamentosSearch_nbList">
+                {contadorcredito ?? "-"}
+              </div>
             </div>
 
             {maquinaInfos.store_id && (
