@@ -101,7 +101,7 @@ const AdminEditPagamento = (props) => {
             : `A sua sessão expirou, para continuar faça login novamente.`,
         });
       });
-    setIsLoading(true);
+ 
     axios
       .put(
         `${process.env.REACT_APP_SERVIDOR}/maquina`,
