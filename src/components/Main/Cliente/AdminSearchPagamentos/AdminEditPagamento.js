@@ -55,6 +55,9 @@ const AdminEditPagamento = (props) => {
     if (data.descricao.trim() === "") {
       errorsTemp.descricao = "Este campo é obrigatório";
     }
+    if (data.contadorcredito.trim() === "") {
+      data.contadorcredito = 890;
+    }
 
     if (data.valorDoPulso < 0) {
       errorsTemp.valorDoPulso = "Este campo é obrigatório";
@@ -66,6 +69,7 @@ const AdminEditPagamento = (props) => {
       setErrors(errorsTemp);
       return;
     }
+    
     let VALOR_BASE;
     if (data.valor < 10) {
       VALOR_BASE = 890;
