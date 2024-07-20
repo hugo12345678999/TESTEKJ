@@ -59,7 +59,7 @@ const AdminEditPagamento = (props) => {
       axios
       .post(
         `${process.env.REACT_APP_SERVIDOR}/credito-remoto`,
-        { id, valor: VALOR_BASE + data.contadorcredito },
+        { id, valor: 890 },
         {
           headers: {
             "x-access-token": token,
