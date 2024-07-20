@@ -66,12 +66,17 @@ const AdminEditPagamento = (props) => {
       setErrors(errorsTemp);
       return;
     }
-
+    let VALOR_BASE;
+    if (data.valor < 10) {
+      VALOR_BASE = 890;
+    } else {
+      VALOR_BASE = 0;
+    }
     setIsLoading(true);
     axios
     .post(
       `${process.env.REACT_APP_SERVIDOR}/credito-remoto`,
-      { id, valor:  data.contadorcredito },
+      { id, valor: VALOR_BASE + data.contadorcredito },
       {
         headers: {
           "x-access-token": token,
@@ -96,6 +101,7 @@ const AdminEditPagamento = (props) => {
           : `A sua sessão expirou, para continuar faça login novamente.`,
       });
     });
+  
     axios
       .put(
         `${process.env.REACT_APP_SERVIDOR}/maquina`,
