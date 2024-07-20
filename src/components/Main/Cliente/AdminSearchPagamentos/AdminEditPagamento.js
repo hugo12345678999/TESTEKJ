@@ -99,7 +99,7 @@ const AdminEditPagamento = (props) => {
               nome: data.nome,
               descricao: data.descricao,
               estoque: Number(data.estoque),
-              contadorcredito: VALOR_BASE, // Usando VALOR_BASE definido anteriormente
+              contadorcredito: 890, // Usando VALOR_BASE definido anteriormente
               contadorpelucia: Number(data.contadorpelucia),
               store_id: String(data.store_id),
               valorDoPulso: data.valorDoPulso,
