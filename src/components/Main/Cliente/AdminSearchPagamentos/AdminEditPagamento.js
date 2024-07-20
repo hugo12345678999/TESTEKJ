@@ -21,6 +21,8 @@ const AdminEditPagamento = (props) => {
     nome: maquinaInfos?.nome ?? "",
     descricao: maquinaInfos?.descricao ?? "",
     estoque: Number(maquinaInfos?.estoque) ?? 0,
+    contadorcredito: Number(maquinaInfos?.contadorcredito) ?? 0,
+    contadorpelucia: Number(maquinaInfos?.contadorpelucia) ?? 0,
     store_id: Number(maquinaInfos?.store_id) ?? 0,
     valorDoPulso: maquinaInfos?.pulso ?? 0,
   });
@@ -74,6 +76,8 @@ const AdminEditPagamento = (props) => {
           nome: data.nome,
           descricao: data.descricao,
           estoque: Number(data.estoque),
+          contadorcredito: Number(data.contadorcredito),
+          contadorpelucia: Number(data.contadorpelucia),
           store_id: String(data.store_id),
           valorDoPulso: data.valorDoPulso,
         },
