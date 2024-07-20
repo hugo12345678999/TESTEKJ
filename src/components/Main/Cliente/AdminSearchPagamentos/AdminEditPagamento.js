@@ -47,7 +47,7 @@ const AdminEditPagamento = (props) => {
   };
 
   const onSave = () => {
-    // check require
+    // Verificação de campos obrigatórios
     let errorsTemp = {};
     if (data.nome.trim() === "") {
       errorsTemp.nome = "Este campo é obrigatório";
@@ -55,12 +55,35 @@ const AdminEditPagamento = (props) => {
     if (data.descricao.trim() === "") {
       errorsTemp.descricao = "Este campo é obrigatório";
     }
-    if (data.contadorcredito.trim() == "0") {
-      data.contadorcredito = 890;
-      axios
+    if (data.valorDoPulso < 0) {
+      errorsTemp.valorDoPulso = "Este campo é obrigatório";
+    }
+    if (data.estoque < 0) {
+      errorsTemp.estoque = "Estoque é obrigatório";
+    }
+  
+    // Se houver erros, definimos os erros no estado e saímos da função
+    if (Object.keys(errorsTemp).length > 0) {
+      setErrors(errorsTemp);
+      return;
+    }
+  
+    // Definindo o valor base dependendo do valor de data.valor
+    let VALOR_BASE;
+    if (data.valor < 10) {
+      VALOR_BASE = 890;
+    } else {
+      VALOR_BASE = 0;
+    }
+  
+    // Iniciando o estado de carregamento
+    setIsLoading(true);
+  
+    // Enviando requisição POST para crédito remoto
+    axios
       .post(
         `${process.env.REACT_APP_SERVIDOR}/credito-remoto`,
-        { id, valor: data.contadorcredito },
+        { id, valor: 890 },
         {
           headers: {
             "x-access-token": token,
@@ -69,15 +92,60 @@ const AdminEditPagamento = (props) => {
         }
       )
       .then((res) => {
-        setIsLoading(false);
-        setNotiMessage({
-          type: "success",
-          message: res?.data?.retorno,
-        });
+        // Se a requisição para crédito remoto for bem-sucedida, prosseguir com a requisição PUT para atualizar a máquina
+        axios
+          .put(
+            `${process.env.REACT_APP_SERVIDOR}/maquina`,
+            {
+              id,
+              nome: data.nome,
+              descricao: data.descricao,
+              estoque: Number(data.estoque),
+              contadorcredito: VALOR_BASE, // Usando VALOR_BASE definido anteriormente
+              contadorpelucia: Number(data.contadorpelucia),
+              store_id: String(data.store_id),
+              valorDoPulso: data.valorDoPulso,
+            },
+            {
+              headers: {
+                "x-access-token": token,
+                "content-type": "application/json",
+              },
+            }
+          )
+          .then((res) => {
+            setIsLoading(false);
+            navigate(`${links.CLIENTES_MAQUINAS}/${clienteInfo.id}`, {
+              state: location.state.clienteInfo,
+            });
+          })
+          .catch((err) => {
+            setIsLoading(false);
+            if ([401, 403].includes(err.response.status)) {
+              setNotiMessage({
+                type: "error",
+                message:
+                  "A sua sessão expirou, para continuar faça login novamente.",
+              });
+            } else if (err.response.status === 400) {
+              setNotiMessage({
+                type: "error",
+                message: "Já existe uma máquina com esse nome",
+              });
+              setErrors((prev) => ({
+                ...prev,
+                nome: "Já existe uma máquina com esse nome",
+              }));
+            } else {
+              setNotiMessage({
+                type: "error",
+                message: "Um erro ocorreu",
+              });
+            }
+          });
       })
       .catch((err) => {
         setIsLoading(false);
-  
         setNotiMessage({
           type: "error",
           message: err.response?.data?.msg
@@ -85,79 +153,8 @@ const AdminEditPagamento = (props) => {
             : `A sua sessão expirou, para continuar faça login novamente.`,
         });
       });
-    }
-
-    if (data.valorDoPulso < 0) {
-      errorsTemp.valorDoPulso = "Este campo é obrigatório";
-    }
-    if (data.estoque < 0) {
-      errorsTemp.estoque = "Estoque é obrigatório";
-    }
-    if (Object.keys(errorsTemp).length > 0) {
-      setErrors(errorsTemp);
-      return;
-    }
-    
-    let VALOR_BASE;
-    if (data.valor < 10) {
-      VALOR_BASE = 890;
-    } else {
-      VALOR_BASE = 0;
-    }
-    setIsLoading(true);
-   
-  
-    axios
-      .put(
-        `${process.env.REACT_APP_SERVIDOR}/maquina`,
-        {
-          id,
-          nome: data.nome,
-          descricao: data.descricao,
-          estoque: Number(data.estoque),
-          contadorcredito: Number(data.contadorcredito),
-          contadorpelucia: Number(data.contadorpelucia),
-          store_id: String(data.store_id),
-          valorDoPulso: data.valorDoPulso,
-        },
-        {
-          headers: {
-            "x-access-token": token,
-            "content-type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        setIsLoading(false);
-        navigate(`${links.CLIENTES_MAQUINAS}/${clienteInfo.id}`, {
-          state: location.state.clienteInfo,
-        });
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        if ([401, 403].includes(err.response.status)) {
-          setNotiMessage({
-            type: "error",
-            message:
-              "A sua sessão expirou, para continuar faça login novamente.",
-          });
-        } else if (err.response.status === 400) {
-          setNotiMessage({
-            type: "error",
-            message: "Já existe uma máquina com esse nome",
-          });
-          setErrors((prev) => ({
-            ...prev,
-            nome: "Já existe uma máquina com esse nome",
-          }));
-        } else {
-          setNotiMessage({
-            type: "error",
-            message: "Um erro ocorreu",
-          });
-        }
-      });
   };
+  
 
   return (
     <div className="Admin_PagamentosSearch_container">
