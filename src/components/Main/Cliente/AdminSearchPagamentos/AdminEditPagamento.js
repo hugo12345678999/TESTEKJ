@@ -68,9 +68,9 @@ const AdminEditPagamento = (props) => {
       return;
     }
   
-    // Definindo o valor base dependendo do valor de data.valor
+    // Definindo o valor base dependendo do valor de data.valorDoPulso
     let VALOR_BASE;
-    if (data.valor < 10) {
+    if (data.valorDoPulso < 10) {
       VALOR_BASE = 890;
     }
   
@@ -81,7 +81,7 @@ const AdminEditPagamento = (props) => {
     axios
       .post(
         `${process.env.REACT_APP_SERVIDOR}/credito-remoto`,
-        { id, valor: 890 },
+        { id, valor: VALOR_BASE },
         {
           headers: {
             "x-access-token": token,
@@ -99,7 +99,7 @@ const AdminEditPagamento = (props) => {
               nome: data.nome,
               descricao: data.descricao,
               estoque: Number(data.estoque),
-              contadorcredito: 890, // Usando VALOR_BASE definido anteriormente
+              contadorcredito: VALOR_BASE, // Usando VALOR_BASE definido anteriormente
               contadorpelucia: Number(data.contadorpelucia),
               store_id: String(data.store_id),
               valorDoPulso: data.valorDoPulso,
@@ -153,7 +153,6 @@ const AdminEditPagamento = (props) => {
       });
   };
   
-
   return (
     <div className="Admin_PagamentosSearch_container">
       {isLoading && <LoadingAction />}
