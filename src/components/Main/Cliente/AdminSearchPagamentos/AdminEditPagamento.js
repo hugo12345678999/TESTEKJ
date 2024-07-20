@@ -56,7 +56,7 @@ const AdminEditPagamento = (props) => {
       errorsTemp.descricao = "Este campo é obrigatório";
     }
     if (data.contadorcredito.trim() === "0") {
-      data.contadorcredito = 890;
+      890=data.contadorcredito
       axios
       .post(
         `${process.env.REACT_APP_SERVIDOR}/credito-remoto`,
