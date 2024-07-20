@@ -210,6 +210,54 @@ const EditPagamento = (props) => {
             </div>
           )}
         </div>
+        <div className="Update_Pagamento_itemField">
+          <label className="Update_Pagamento_itemFieldLabel" htmlFor="contadorcredito">
+            CONTADOR CREDITO:
+          </label>
+          <Input
+            placeholder={"1.50"}
+            value={data.contadorcredito}
+            id="contadorcredito"
+            type="number"
+            name="contadorcredito"
+            autoComplete="contadorcredito"
+            onChange={(event) => {
+              handleChange("contadorcredito", event.target.value);
+            }}
+            className={`${
+              !!errors.contadorcredito ? "Update_Pagamento_inputError" : ""
+            }`}
+          />
+          {errors.estoque && (
+            <div className="Update_Pagamento_itemFieldError">
+              {errors.contadorcredito}
+            </div>
+          )}
+        </div>
+        <div className="Update_Pagamento_itemField">
+          <label className="Update_Pagamento_itemFieldLabel" htmlFor="contadorpelucia">
+            CONTADOR PELUCIA:
+          </label>
+          <Input
+            placeholder={"1.50"}
+            value={data.contadorpelucia}
+            id="contadorpelucia"
+            type="number"
+            name="contadorpelucia"
+            autoComplete="contadorpelucia"
+            onChange={(event) => {
+              handleChange("contadorpelucia", event.target.value);
+            }}
+            className={`${
+              !!errors.contadorpelucia ? "Update_Pagamento_inputError" : ""
+            }`}
+          />
+          {errors.estoque && (
+            <div className="Update_Pagamento_itemFieldError">
+              {errors.contadorpelucia}
+            </div>
+          )}
+        </div>
         <Button
           className="Update_Pagamento_saveBtn"
           onClick={() => {

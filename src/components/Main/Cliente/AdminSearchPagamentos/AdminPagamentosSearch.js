@@ -37,6 +37,7 @@ const AdminPagamentosSearch = (props) => {
   const [probabilidade, setprobabilidade] = useState("");
   const [estoque, setEstoque] = useState("");
   const [contadorcredito, setContadorCredito] = useState("");
+  const [contadorpelucia, setContadorPelucia] = useState("");
   const [estoque2, setEstoque2] = useState("");
   const [estoque3, setEstoque3] = useState("");
   const [estoque4, setEstoque4] = useState("");
@@ -78,6 +79,7 @@ const AdminPagamentosSearch = (props) => {
           setprobabilidade(res?.data?.probabilidade);
           setEstoque(res?.data?.estoque);
           setContadorCredito(res?.data?.contadorcredito);
+          setContadorPelucia(res?.data?.contadorpelucia);
           setEstoque2(res?.data?.estoque2);
           setEstoque3(res?.data?.estoque3);
           setEstoque4(res?.data?.estoque4);
@@ -376,6 +378,10 @@ const AdminPagamentosSearch = (props) => {
               <div style={{ marginLeft: "1px" }}>CONTADOR CREDITO</div>
               <div className="Admin_PagamentosSearch_nbList">
                 {contadorcredito ?? "-"}
+              </div>
+              <div style={{ marginLeft: "1px" }}>CONTADOR PELUCIA</div>
+              <div className="Admin_PagamentosSearch_nbList">
+                {contadorpelucia ?? "-"}
               </div>
             </div>
 

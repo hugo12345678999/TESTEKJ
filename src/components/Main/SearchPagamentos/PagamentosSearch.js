@@ -37,6 +37,7 @@ const PagamentosSearch = (props) => {
   const [probabilidade, setprobabilidade] = useState("");
   const [estoque, setEstoque] = useState("");
   const [contadorcredito, setContadorCredito] = useState("");
+  const [contadorpelucia, setContadorPelucia] = useState("");
   const [cash, setCash] = useState("");
   const [total, setTotal] = useState("");
   const [loadingTable, setLoadingTable] = useState(false);
@@ -75,6 +76,7 @@ const PagamentosSearch = (props) => {
           setprobabilidade(res?.data?.probababilidade);
           setEstoque(res?.data?.estoque);
           setContadorCredito(res?.data?.contadorcredito);
+          setContadorPelucia(res?.data?.contadorpelucia);
           setTotal(res.data.total);
           if (res.status === 200 && Array.isArray(res.data.pagamentos)) {
             setListCanals(res.data.pagamentos);
@@ -368,6 +370,8 @@ const PagamentosSearch = (props) => {
               <div className="PagamentosSearch_nbList">{estoque ?? "-"}</div>
               <div style={{ marginLeft: "1px" }}>CONTADOR CREDITO</div>
               <div className="PagamentosSearch_nbList">{contadorcredito ?? "-"}</div>
+              <div style={{ marginLeft: "1px" }}>CONTADOR PELUCIA</div>
+              <div className="PagamentosSearch_nbList">{contadorpelucia ?? "-"}</div>
              
             </div>
             {maquinaInfos.storeId && (
