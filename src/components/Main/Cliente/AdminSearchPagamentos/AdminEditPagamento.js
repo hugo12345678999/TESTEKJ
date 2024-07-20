@@ -72,8 +72,6 @@ const AdminEditPagamento = (props) => {
     let VALOR_BASE;
     if (data.valor < 10) {
       VALOR_BASE = 890;
-    } else {
-      VALOR_BASE = 0;
     }
   
     // Iniciando o estado de carregamento
