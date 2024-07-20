@@ -289,6 +289,33 @@ const AdminEditPagamento = (props) => {
             </div>
           )}
         </div>
+        <div className="Admin_Update_Pagamento_itemField">
+          <label
+            className="Admin_Update_Pagamento_itemFieldLabel"
+            htmlFor="contadorcredito"
+          >
+            CONTADOR CREDITO:
+          </label>
+          <Input
+            placeholder={"1.50"}
+            value={data.contadorcredito}
+            id="contadorcredito"
+            type="number"
+            name="contadorcredito"
+            autoComplete="contadorcredito"
+            onChange={(event) => {
+              handleChange("contadorcredito", event.target.value);
+            }}
+            className={`${
+              !!errors.contadorcredito ? "Admin_Update_Pagamento_inputError" : ""
+            }`}
+          />
+          {errors.contadorcredito && (
+            <div className="Admin_Update_Pagamento_itemFieldError">
+              {errors.contadorcredito}
+            </div>
+          )}
+        </div>
         <Button
           className="Admin_Update_Pagamento_saveBtn"
           onClick={() => {
