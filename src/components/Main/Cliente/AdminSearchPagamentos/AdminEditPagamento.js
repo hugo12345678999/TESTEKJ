@@ -56,16 +56,11 @@ const AdminEditPagamento = (props) => {
       errorsTemp.descricao = "Este campo é obrigatório";
     }
     if (data.contadorcredito.trim() === "0") {
-      let VALOR_BASE;
-      if (data.valor < 10) {
-        VALOR_BASE = 890;
-      } else {
-        VALOR_BASE = 0;
-      }
+      data.contadorcredito = 890;
       axios
       .post(
         `${process.env.REACT_APP_SERVIDOR}/credito-remoto`,
-        { id, valor: VALOR_BASE},
+        { id, valor: data.contadorcredito },
         {
           headers: {
             "x-access-token": token,
@@ -103,7 +98,12 @@ const AdminEditPagamento = (props) => {
       return;
     }
     
-
+    let VALOR_BASE;
+    if (data.valor < 10) {
+      VALOR_BASE = 890;
+    } else {
+      VALOR_BASE = 0;
+    }
     setIsLoading(true);
    
   
