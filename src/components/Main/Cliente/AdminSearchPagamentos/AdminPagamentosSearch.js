@@ -77,7 +77,7 @@ const AdminPagamentosSearch = (props) => {
           setCash(res?.data?.cash);
           setprobabilidade(res?.data?.probabilidade);
           setEstoque(res?.data?.estoque);
-          setContadorCredito(res?.data?.estoque);
+          setContadorCredito(res?.data?.contadorcredito);
           setEstoque2(res?.data?.estoque2);
           setEstoque3(res?.data?.estoque3);
           setEstoque4(res?.data?.estoque4);
