@@ -66,42 +66,36 @@ const AdminEditPagamento = (props) => {
       setErrors(errorsTemp);
       return;
     }
-    let VALOR_BASE;
-    if (data.valor < 10) {
-      VALOR_BASE = 610;
-    } else {
-      VALOR_BASE = 61;
-    }
+
     setIsLoading(true);
     axios
-      .post(
-        `${process.env.REACT_APP_SERVIDOR}/credito-remoto`,
-        { id, valor: VALOR_BASE + data.contadorcredito },
-        {
-          headers: {
-            "x-access-token": token,
-            "content-type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        setIsLoading(false);
-        setNotiMessage({
-          type: "success",
-          message: res?.data?.retorno,
-        });
-      })
-      .catch((err) => {
-        setIsLoading(false);
-
-        setNotiMessage({
-          type: "error",
-          message: err.response?.data?.msg
-            ? err.response?.data?.msg
-            : `A sua sessão expirou, para continuar faça login novamente.`,
-        });
+    .post(
+      `${process.env.REACT_APP_SERVIDOR}/credito-remoto`,
+      { id, valor:  data.contadorcredito },
+      {
+        headers: {
+          "x-access-token": token,
+          "content-type": "application/json",
+        },
+      }
+    )
+    .then((res) => {
+      setIsLoading(false);
+      setNotiMessage({
+        type: "success",
+        message: res?.data?.retorno,
       });
-    setIsLoading(true);
+    })
+    .catch((err) => {
+      setIsLoading(false);
+
+      setNotiMessage({
+        type: "error",
+        message: err.response?.data?.msg
+          ? err.response?.data?.msg
+          : `A sua sessão expirou, para continuar faça login novamente.`,
+      });
+    });
     axios
       .put(
         `${process.env.REACT_APP_SERVIDOR}/maquina`,
