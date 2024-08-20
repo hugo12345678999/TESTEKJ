@@ -88,6 +88,15 @@
 
 .Admin_PagamentosSearch_nbList {
   margin-left: 5px;
+  background: #e5e7eb;
+  color: #3182ce;
+  border-radius: 4px;
+  padding: 2px 5px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.Admin_PagamentosSearch_nbList1 {
+  margin-left: 5px;
   background: #000000;
   color: #FFFFFF;
   border-radius: 4px;
