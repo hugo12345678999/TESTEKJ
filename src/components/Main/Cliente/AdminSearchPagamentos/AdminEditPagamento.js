@@ -66,41 +66,8 @@ const AdminEditPagamento = (props) => {
       setErrors(errorsTemp);
       return;
     }
-    let VALOR_BASE;
-    if (data.valor < 10) {
-      VALOR_BASE = 610;
-    } else {
-      VALOR_BASE = 61;
-    }
-    setIsLoading(true);
-    axios
-      .post(
-        `${process.env.REACT_APP_SERVIDOR}/credito-remoto`,
-        { id, valor: VALOR_BASE + data.contadorcredito },
-        {
-          headers: {
-            "x-access-token": token,
-            "content-type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        setIsLoading(false);
-        setNotiMessage({
-          type: "success",
-          message: res?.data?.retorno,
-        });
-      })
-      .catch((err) => {
-        setIsLoading(false);
-
-        setNotiMessage({
-          type: "error",
-          message: err.response?.data?.msg
-            ? err.response?.data?.msg
-            : `A sua sessão expirou, para continuar faça login novamente.`,
-        });
-      });
+   
+      
  
     axios
       .put(
@@ -354,33 +321,7 @@ const AdminEditPagamento = (props) => {
             </div>
           )}
         </div>
-        <div className="Admin_Update_Pagamento_itemField">
-          <label
-            className="Admin_Update_Pagamento_itemFieldLabel"
-            htmlFor="contadorpelucia"
-          >
-            CONTADOR PELUCIA:
-          </label>
-          <Input
-            placeholder={"1.50"}
-            value={data.contadorpelucia}
-            id="contadorpelucia"
-            type="number"
-            name="contadorpelucia"
-            autoComplete="contadorpelucia"
-            onChange={(event) => {
-              handleChange("contadorpelucia", event.target.value);
-            }}
-            className={`${
-              !!errors.contadorpelucia ? "Admin_Update_Pagamento_inputError" : ""
-            }`}
-          />
-          {errors.contadorpelucia && (
-            <div className="Admin_Update_Pagamento_itemFieldError">
-              {errors.contadorpelucia}
-            </div>
-          )}
-        </div>
+        
         <Button
           className="Admin_Update_Pagamento_saveBtn"
           onClick={() => {
