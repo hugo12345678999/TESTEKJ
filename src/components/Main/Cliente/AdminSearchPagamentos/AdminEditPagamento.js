@@ -272,7 +272,7 @@ const AdminEditPagamento = (props) => {
             className="Admin_Update_Pagamento_itemFieldLabel"
             htmlFor="estoque"
           >
-            SAIDA DE PELUCIA:
+            RELOGIO PELUCIA:
           </label>
           <Input
             placeholder={"1.50"}
