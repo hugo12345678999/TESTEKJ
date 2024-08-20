@@ -381,7 +381,7 @@ const AdminPagamentosSearch = (props) => {
               </div>
               <div style={{ marginLeft: "1px" }}>RELOGIO PELUCIA</div>
               <div className="Admin_PagamentosSearch_nbList1">
-                {estoque ?? "-"}
+                {"0000"+estoque ?? "-"}
               </div>
             </div>
 
