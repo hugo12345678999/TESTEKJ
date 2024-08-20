@@ -371,7 +371,7 @@ const PagamentosSearch = (props) => {
               <div style={{ marginLeft: "1px" }}>CONTADOR CREDITO</div>
               <div className="PagamentosSearch_nbList">{contadorcredito ?? "-"}</div>
               <div style={{ marginLeft: "1px" }}>CONTADOR PELUCIA</div>
-              <div className="PagamentosSearch_nbList">{contadorpelucia ?? "-"}</div>
+              <div className="PagamentosSearch_nbList">{estoque ?? "-"}</div>
              
             </div>
             {maquinaInfos.storeId && (
