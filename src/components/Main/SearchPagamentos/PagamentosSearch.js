@@ -85,7 +85,7 @@ const PagamentosSearch = (props) => {
             setNotiMessage({
               type: "error",
               message:
-                "A sua sessão expirou, para continuar faça login novamente.",
+                "A sua sessão expirou, para continuar faça login novamente..",
             });
             setDataUser(null);
           }
