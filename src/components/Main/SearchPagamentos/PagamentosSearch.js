@@ -1,13 +1,11 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LoadingAction from "../../../themes/LoadingAction/LoadingAction";
 import "./PagamentosSearch.css";
-import { Button, Col, Input, Row, Table } from "antd";
+import { Button, Table } from "antd";
 import { AuthContext } from "../../../contexts/AuthContext";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import moment from "moment";
-import _, { debounce } from "lodash";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { DatePicker } from "antd";
 import "antd/dist/antd.css";
@@ -22,36 +20,37 @@ import {
 import qr_code_icon from "../../../assets/images/QR.png";
 import notes from "../../../assets/images/notes.png";
 
+const { RangePicker } = DatePicker;
+
+const formatNumberWithLeadingZeros = (number, length) => {
+  return number ? number.toString().padStart(length, '0') : '-';
+};
+
 const PagamentosSearch = (props) => {
   const location = useLocation();
   const maquinaInfos = location.state;
-  const { setDataUser, loading, authInfo, setNotiMessage } =
-    useContext(AuthContext);
-  let navigate = useNavigate();
+  const { setDataUser, authInfo, setNotiMessage } = useContext(AuthContext);
+  const navigate = useNavigate();
   const token = authInfo?.dataUser?.token;
   const [isLoading, setIsLoading] = useState(false);
-  // const [searchText, setsearchText] = useState('');
   const [searchText, setSearchText] = useState("");
   const [listCanals, setListCanals] = useState([]);
   const [estornos, setEstornos] = useState("");
-  const [probabilidade, setprobabilidade] = useState("");
+  const [probabilidade, setProbabilidade] = useState("");
   const [estoque, setEstoque] = useState("");
-  const [contadorcredito, setContadorCredito] = useState("");
-  const [contadorpelucia, setContadorPelucia] = useState("");
+  const [contadorCredito, setContadorCredito] = useState("");
+  const [contadorPelucia, setContadorPelucia] = useState("");
   const [cash, setCash] = useState("");
   const [total, setTotal] = useState("");
   const [loadingTable, setLoadingTable] = useState(false);
   const [dataInicio, setDataInicio] = useState(null);
   const [dataFim, setDataFim] = useState(null);
-  const [dataMaquinas, setDataMaquinas] = useState(null);
 
-  // const []
   const { id } = useParams();
-  const { RangePicker } = DatePicker;
+
   useEffect(() => {
     getData(id);
-    // getMaquinas(id)
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (dataFim != null) {
@@ -72,11 +71,11 @@ const PagamentosSearch = (props) => {
         .then((res) => {
           setLoadingTable(false);
           setEstornos(res.data.estornos);
-          setCash(res?.data?.cash);
-          setprobabilidade(res?.data?.probababilidade);
-          setEstoque(res?.data?.estoque);
-          setContadorCredito(res?.data?.contadorcredito);
-          setContadorPelucia(res?.data?.contadorpelucia);
+          setCash(res.data.cash);
+          setProbabilidade(res.data.probabilidade);
+          setEstoque(res.data.estoque);
+          setContadorCredito(res.data.contadorcredito);
+          setContadorPelucia(res.data.contadorpelucia);
           setTotal(res.data.total);
           if (res.status === 200 && Array.isArray(res.data.pagamentos)) {
             setListCanals(res.data.pagamentos);
@@ -85,35 +84,14 @@ const PagamentosSearch = (props) => {
         .catch((err) => {
           setLoadingTable(false);
           if ([401, 403].includes(err.response.status)) {
-            // setNotiMessage('A sua sessão expirou, para continuar faça login novamente.');
             setNotiMessage({
               type: "error",
-              message:
-                "A sua sessão expirou, para continuar faça login novamente.",
+              message: "A sua sessão expirou, para continuar faça login novamente.",
             });
             setDataUser(null);
           }
         });
     }
-  };
-
-  const getMaquinas = (id) => {
-    axios
-      .get(`${process.env.REACT_APP_SERVIDOR}/maquinas`, {
-        headers: {
-          "x-access-token": token,
-          "content-type": "application/json",
-        },
-      })
-      .then((res) => {
-        if (res.status === 200 && Array.isArray(res.data)) {
-          const maquinasData = res.data.find((item) => item.id === id);
-          setDataMaquinas(maquinasData ?? null);
-        } else {
-          throw new Error();
-        }
-      })
-      .catch((err) => {});
   };
 
   const getPaymentsPeriod = (dataInicio, dataFim) => {
@@ -137,7 +115,7 @@ const PagamentosSearch = (props) => {
         .then((res) => {
           setLoadingTable(false);
           setEstornos(res.data.estornos);
-          setCash(res?.data?.cash);
+          setCash(res.data.cash);
           setTotal(res.data.total);
           if (res.status === 200 && Array.isArray(res.data.pagamentos)) {
             setListCanals(res.data.pagamentos);
@@ -146,11 +124,9 @@ const PagamentosSearch = (props) => {
         .catch((err) => {
           setLoadingTable(false);
           if ([401, 403].includes(err.response.status)) {
-            // setNotiMessage('A sua sessão expirou, para continuar faça login novamente.');
             setNotiMessage({
               type: "error",
-              message:
-                "A sua sessão expirou, para continuar faça login novamente.",
+              message: "A sua sessão expirou, para continuar faça login novamente.",
             });
             setDataUser(null);
           }
@@ -164,25 +140,19 @@ const PagamentosSearch = (props) => {
       dataIndex: "data",
       key: "data",
       width: 500,
-      render: (data) => (
-        <span>{moment(data).format("DD/MM/YYYY HH:mm:ss")}</span>
-      ),
+      render: (data) => <span>{moment(data).format("DD/MM/YYYY HH:mm:ss")}</span>,
     },
     {
       title: "Forma de pagamento",
       dataIndex: "tipo",
       key: "tipo",
-      render: (tipo, record) => (
+      render: (tipo) => (
         <span>
-          {tipo === "bank_transfer"
-            ? "PIX"
-            : tipo === "CASH"
-            ? "Especie"
-            : tipo === "debit_card"
-            ? "Débito"
-            : tipo === "credit_card"
-            ? "Crédito"
-            : ""}
+          {tipo === "bank_transfer" ? "PIX" :
+           tipo === "CASH" ? "Espécie" :
+           tipo === "debit_card" ? "Débito" :
+           tipo === "credit_card" ? "Crédito" :
+           ""}
         </span>
       ),
     },
@@ -213,30 +183,25 @@ const PagamentosSearch = (props) => {
             placement="top"
             overlay={
               <Tooltip id={`tooltip-top-${record.key}`}>
-                {record.motivoEstorno
-                  ? record.motivoEstorno
-                  : "Sem motivo registrado"}
+                {record.motivoEstorno ? record.motivoEstorno : "Sem motivo registrado"}
               </Tooltip>
             }
           >
             <span style={{ color: "gray", cursor: "pointer" }}>
-              {estornado ? "Estornado" : "Recebido"}
+              Estornado
             </span>
           </OverlayTrigger>
         ) : (
-          <span style={{ color: estornado ? "gray" : "green" }}>
-            {estornado ? "Estornado" : "Recebido"}
-          </span>
+          <span style={{ color: "green" }}>Recebido</span>
         ),
     },
   ];
 
   const onRelatorioHandler = () => {
-    if (!dataInicio && !dataFim) {
+    if (!dataInicio || !dataFim) {
       setNotiMessage({
         type: "error",
-        message:
-          "selecione no calendario a esquerda a data de inicio e firm para gerar o relatorio para essa maquina!",
+        message: "Selecione a data de início e fim para gerar o relatório!",
       });
     } else {
       navigate(`${links.RELATORIO}/${id}`, {
@@ -253,59 +218,39 @@ const PagamentosSearch = (props) => {
           <div className="Dashboard_staBlockTitle">{maquinaInfos?.nome}</div>
           <Button
             className="PagamentosSearch_header_editBtn"
-            onClick={() => {
-              navigate(`${links.EDIT_FORNECEDOR_CANAIS}/${id}`, {
-                state: location.state,
-              });
-            }}
+            onClick={() => navigate(`${links.EDIT_FORNECEDOR_CANAIS}/${id}`, { state: location.state })}
           >
             <AiOutlineEdit />
             <span>Editar</span>
           </Button>
           <Button
             className="PagamentosSearch_header_editBtn"
-            onClick={() => {
-              navigate(`${links.DELETE_FORNECEDOR_CANAIS}/${id}`, {
-                state: location.state,
-              });
-            }}
+            onClick={() => navigate(`${links.DELETE_FORNECEDOR_CANAIS}/${id}`, { state: location.state })}
           >
             <AiFillDelete />
             <span>Excluir Pagamentos</span>
           </Button>
-          {/*<Link to={links.REMOTE_CREDIT.replace(':id', id)}>*/}
-          {/*   */}
-          {/*</Link>*/}
           <Button
             className="PagamentosSearch_header_editBtn"
-            onClick={() => {
-              navigate(links.REMOTE_CREDIT.replace(":id", id), {
-                state: location.state,
-              });
-            }}
+            onClick={() => navigate(links.REMOTE_CREDIT.replace(":id", id), { state: location.state })}
           >
             <AiFillDollarCircle />
-            <span>credito remoto</span>
+            <span>Crédito Remoto</span>
           </Button>
           <Button
             className="PagamentosSearch_header_editBtn"
-            onClick={() => {
-              navigate(`${links.GRUA_CLIENTE}/${id}`, {
-                state: location.state,
-              });
-            }}
+            onClick={() => navigate(`${links.GRUA_CLIENTE}/${id}`, { state: location.state })}
           >
             <AiOutlineEdit />
-            <span>CONFIGURAR GRUA</span>
+            <span>Configurar Grua</span>
           </Button>
           
           <div className="PagamentosSearch_datePicker">
-            {/* <span> Filtro por data:</span> */}
             <FontAwesomeIcon
               style={{ marginBottom: "10px", marginRight: "10px" }}
               icon={faSearch}
               onClick={() => getPaymentsPeriod(dataInicio, dataFim)}
-            ></FontAwesomeIcon>
+            />
             <RangePicker
               style={{ border: "1px solid", borderRadius: "4px" }}
               placeholder={["Data Inicial", "Data Final"]}
@@ -362,17 +307,16 @@ const PagamentosSearch = (props) => {
                   currency: "BRL",
                 }).format(cash)}
               </div>
-              
               <div style={{ marginLeft: "20px" }}>Store ID</div>
-              <div className="PagamentosSearch_nbList">{maquinaInfos.storeId}
+              <div className="PagamentosSearch_nbList">
+                {formatNumberWithLeadingZeros(maquinaInfos.storeId, 5)}
               </div>
-              <div style={{ marginLeft: "1px" }}>SAIDA DE PELUCIA</div>
+              <div style={{ marginLeft: "1px" }}>Saída de Pelúcia</div>
               <div className="PagamentosSearch_nbList">{estoque ?? "-"}</div>
-              <div style={{ marginLeft: "1px" }}>RELOGIO CREDITO</div>
-              <div className="PagamentosSearch_nbList">{contadorcredito ?? "-"}</div>
-              <div style={{ marginLeft: "1px" }}>RELOGIO PELUCIA</div>
-              <div className="PagamentosSearch_nbList">{estoque ?? "-"}</div>
-             
+              <div style={{ marginLeft: "1px" }}>Relógio Crédito</div>
+              <div className="PagamentosSearch_nbList">{contadorCredito ?? "-"}</div>
+              <div style={{ marginLeft: "1px" }}>Relógio Pelúcia</div>
+              <div className="PagamentosSearch_nbList">{contadorPelucia ?? "-"}</div>
             </div>
             {maquinaInfos.storeId && (
               <Link
@@ -395,12 +339,7 @@ const PagamentosSearch = (props) => {
             pagination={false}
             loading={loadingTable}
             locale={{
-              emptyText:
-                searchText.trim() !== "" ? (
-                  "-"
-                ) : (
-                  <div>Não foram encontrados resultados para sua pesquisa.</div>
-                ),
+              emptyText: searchText.trim() !== "" ? "-" : "Não foram encontrados resultados para sua pesquisa.",
             }}
           />
         </div>
