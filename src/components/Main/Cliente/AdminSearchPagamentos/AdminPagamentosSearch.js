@@ -373,11 +373,6 @@ const AdminPagamentosSearch = (props) => {
               <div className="Admin_PagamentosSearch_nbList">
                 {maquinaInfos.store_id}
               </div>
-
-              <div style={{ marginLeft: "1px" }}>SAIDA DE PELUCIA</div>
-              <div className="Admin_PagamentosSearch_nbList">
-             {estoque ?? "-"}
-              </div>
               <div style={{ marginLeft: "1px" }}>RELOGIO CREDITO</div>
               <div className="Admin_PagamentosSearch_nbList1">
                 {formatNumberWithLeadingZeros(contadorcredito, 6) ?? "-"}
