@@ -5,6 +5,7 @@ import { Button, Col, Input, Row, Table } from "antd";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import moment from "moment";
+import _, { debounce } from "lodash";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
@@ -29,6 +30,7 @@ const PagamentosSearch = (props) => {
   let navigate = useNavigate();
   const token = authInfo?.dataUser?.token;
   const [isLoading, setIsLoading] = useState(false);
+  // const [searchText, setsearchText] = useState('');
   const [searchText, setSearchText] = useState("");
   const [listCanals, setListCanals] = useState([]);
   const [estornos, setEstornos] = useState("");
@@ -43,18 +45,19 @@ const PagamentosSearch = (props) => {
   const [dataFim, setDataFim] = useState(null);
   const [dataMaquinas, setDataMaquinas] = useState(null);
 
+  // const []
   const { id } = useParams();
   const { RangePicker } = DatePicker;
-
   useEffect(() => {
     getData(id);
-  }, [id]);
+    // getMaquinas(id)
+  }, []);
 
   useEffect(() => {
     if (dataFim != null) {
       getPaymentsPeriod(dataInicio, dataFim);
     }
-  }, [dataInicio, dataFim, id]);
+  }, [dataFim]);
 
   const getData = (id) => {
     if (id.trim() !== "") {
@@ -70,8 +73,8 @@ const PagamentosSearch = (props) => {
           setLoadingTable(false);
           setEstornos(res.data.estornos);
           setCash(res?.data?.cash);
-          setprobabilidade(res?.data?.probabilidade);
-          setEstoque(formatToSixDigits(res?.data?.estoque));
+          setprobabilidade(res?.data?.probababilidade);
+          setEstoque(res?.data?.estoque);
           setContadorCredito(res?.data?.contadorcredito);
           setContadorPelucia(res?.data?.contadorpelucia);
           setTotal(res.data.total);
@@ -82,15 +85,35 @@ const PagamentosSearch = (props) => {
         .catch((err) => {
           setLoadingTable(false);
           if ([401, 403].includes(err.response.status)) {
+            // setNotiMessage('A sua sessão expirou, para continuar faça login novamente.');
             setNotiMessage({
               type: "error",
               message:
-                "A sua sessão expirou, para continuar faça login novamente..",
+                "A sua sessão expirou, para continuar faça login novamente.",
             });
             setDataUser(null);
           }
         });
     }
+  };
+
+  const getMaquinas = (id) => {
+    axios
+      .get(`${process.env.REACT_APP_SERVIDOR}/maquinas`, {
+        headers: {
+          "x-access-token": token,
+          "content-type": "application/json",
+        },
+      })
+      .then((res) => {
+        if (res.status === 200 && Array.isArray(res.data)) {
+          const maquinasData = res.data.find((item) => item.id === id);
+          setDataMaquinas(maquinasData ?? null);
+        } else {
+          throw new Error();
+        }
+      })
+      .catch((err) => {});
   };
 
   const getPaymentsPeriod = (dataInicio, dataFim) => {
@@ -116,7 +139,6 @@ const PagamentosSearch = (props) => {
           setEstornos(res.data.estornos);
           setCash(res?.data?.cash);
           setTotal(res.data.total);
-          setEstoque(formatToSixDigits(res?.data?.estoque));
           if (res.status === 200 && Array.isArray(res.data.pagamentos)) {
             setListCanals(res.data.pagamentos);
           }
@@ -124,6 +146,7 @@ const PagamentosSearch = (props) => {
         .catch((err) => {
           setLoadingTable(false);
           if ([401, 403].includes(err.response.status)) {
+            // setNotiMessage('A sua sessão expirou, para continuar faça login novamente.');
             setNotiMessage({
               type: "error",
               message:
@@ -133,10 +156,6 @@ const PagamentosSearch = (props) => {
           }
         });
     }
-  };
-
-  const formatToSixDigits = (value) => {
-    return value ? String(value).padStart(6, '0') : '000000';
   };
 
   const columns = [
@@ -158,7 +177,7 @@ const PagamentosSearch = (props) => {
           {tipo === "bank_transfer"
             ? "PIX"
             : tipo === "CASH"
-            ? "Espécie"
+            ? "Especie"
             : tipo === "debit_card"
             ? "Débito"
             : tipo === "credit_card"
@@ -217,7 +236,7 @@ const PagamentosSearch = (props) => {
       setNotiMessage({
         type: "error",
         message:
-          "Selecione no calendário a esquerda a data de início e fim para gerar o relatório para essa máquina!",
+          "selecione no calendario a esquerda a data de inicio e firm para gerar o relatorio para essa maquina!",
       });
     } else {
       navigate(`${links.RELATORIO}/${id}`, {
@@ -254,6 +273,9 @@ const PagamentosSearch = (props) => {
             <AiFillDelete />
             <span>Excluir Pagamentos</span>
           </Button>
+          {/*<Link to={links.REMOTE_CREDIT.replace(':id', id)}>*/}
+          {/*   */}
+          {/*</Link>*/}
           <Button
             className="PagamentosSearch_header_editBtn"
             onClick={() => {
@@ -263,7 +285,7 @@ const PagamentosSearch = (props) => {
             }}
           >
             <AiFillDollarCircle />
-            <span>Crédito Remoto</span>
+            <span>credito remoto</span>
           </Button>
           <Button
             className="PagamentosSearch_header_editBtn"
@@ -273,94 +295,115 @@ const PagamentosSearch = (props) => {
               });
             }}
           >
-            <AiFillDollarCircle />
-            <span>Cliente GRUA</span>
+            <AiOutlineEdit />
+            <span>CONFIGURAR GRUA</span>
           </Button>
-          <Button
-            className="PagamentosSearch_header_editBtn"
-            onClick={() => {
-              navigate(`${links.CLIENTE}/${id}`, {
-                state: location.state,
-              });
-            }}
-          >
-            <AiFillDollarCircle />
-            <span>Visualizar Cliente</span>
-          </Button>
-        </div>
-        <div className="PagamentosSearch_header_right">
-          <div className="PagamentosSearch_header_right_date">
+          
+          <div className="PagamentosSearch_datePicker">
+            {/* <span> Filtro por data:</span> */}
+            <FontAwesomeIcon
+              style={{ marginBottom: "10px", marginRight: "10px" }}
+              icon={faSearch}
+              onClick={() => getPaymentsPeriod(dataInicio, dataFim)}
+            ></FontAwesomeIcon>
             <RangePicker
-              format="DD/MM/YYYY"
+              style={{ border: "1px solid", borderRadius: "4px" }}
+              placeholder={["Data Inicial", "Data Final"]}
               onChange={(dates, dateStrings) => {
-                if (dates) {
-                  setDataInicio(dateStrings[0]);
-                  setDataFim(dateStrings[1]);
-                } else {
-                  setDataInicio(null);
-                  setDataFim(null);
-                }
+                setDataInicio(dateStrings ? dateStrings[0] : null);
+                setDataFim(dateStrings ? dateStrings[1] : null);
               }}
             />
-            <Button
-              className="PagamentosSearch_header_right_button"
-              onClick={onRelatorioHandler}
-            >
-              <FontAwesomeIcon icon={faSearch} />
-              <span>Buscar</span>
-            </Button>
           </div>
+          <Button
+            className="PagamentosSearch_header_editBtn"
+            onClick={() => onRelatorioHandler()}
+          >
+            <img
+              style={{ width: "15px", marginRight: "2px" }}
+              src={notes}
+              alt="notes"
+            />
+            <span>Relatório</span>
+          </Button>
         </div>
+        <Link
+          className="PagamentosSearch_header_back"
+          to={links.DASHBOARD_FORNECEDOR}
+        >
+          VOLTAR
+        </Link>
       </div>
-      <div className="PagamentosSearch_stats">
-        <div className="PagamentosSearch_statItem">
-          <div style={{ marginLeft: "1px" }}>SAIDA DE PELUCIA</div>
-          <div className="PagamentosSearch_nbList">{estoque ?? "-"}</div>
-        </div>
-        <div className="PagamentosSearch_statItem">
-          <div style={{ marginLeft: "1px" }}>TOTAL ESTORNOS</div>
-          <div className="PagamentosSearch_nbList">
-            {estornos ? new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(estornos) : "-"}
+      <div className="PagamentosSearch_body">
+        <div className="PagamentosSearch_content">
+          <div
+            className="PagamentosSearch_titleList_main"
+            style={{ marginBottom: "10px" }}
+          >
+            <div className="PagamentosSearch_titleList">
+              <div style={{ marginLeft: "20px" }}>Total</div>
+              <div className="PagamentosSearch_nbList">
+                {Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(total)}
+              </div>
+              <div style={{ marginLeft: "20px" }}>Estornos</div>
+              <div className="PagamentosSearch_nbList">
+                {Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(estornos)}
+              </div>
+              <div style={{ marginLeft: "20px" }}>Espécie</div>
+              <div className="PagamentosSearch_nbList">
+                {Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(cash)}
+              </div>
+              
+              <div style={{ marginLeft: "20px" }}>Store ID</div>
+              <div className="PagamentosSearch_nbList">{maquinaInfos.storeId}
+              </div>
+              <div style={{ marginLeft: "1px" }}>SAIDA DE PELUCIA</div>
+              <div className="PagamentosSearch_nbList">{estoque ?? "-"}</div>
+              <div style={{ marginLeft: "1px" }}>CONTADOR CREDITO</div>
+              <div className="PagamentosSearch_nbList">{contadorcredito ?? "-"}</div>
+              <div style={{ marginLeft: "1px" }}>CONTADOR PELUCIA</div>
+              <div className="PagamentosSearch_nbList">{contadorpelucia ?? "-"}</div>
+             
+            </div>
+            {maquinaInfos.storeId && (
+              <Link
+                target="_blank"
+                to={`//www.mercadopago.com.br/stores/detail?store_id=${maquinaInfos.storeId}`}
+              >
+                <img
+                  className="PagamentosSearch_QR_Icon"
+                  src={qr_code_icon}
+                  alt="QR"
+                />
+              </Link>
+            )}
           </div>
+          <div className="PagamentosSearch_description">{`${maquinaInfos?.nome} - ${maquinaInfos?.descricao}`}</div>
+
+          <Table
+            columns={columns}
+            dataSource={listCanals}
+            pagination={false}
+            loading={loadingTable}
+            locale={{
+              emptyText:
+                searchText.trim() !== "" ? (
+                  "-"
+                ) : (
+                  <div>Não foram encontrados resultados para sua pesquisa.</div>
+                ),
+            }}
+          />
         </div>
-        <div className="PagamentosSearch_statItem">
-          <div style={{ marginLeft: "1px" }}>TOTAL CASH</div>
-          <div className="PagamentosSearch_nbList">
-            {cash ? new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(cash) : "-"}
-          </div>
-        </div>
-        <div className="PagamentosSearch_statItem">
-          <div style={{ marginLeft: "1px" }}>TOTAL PROBABILIDADE</div>
-          <div className="PagamentosSearch_nbList">
-            {probabilidade ? new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(probabilidade) : "-"}
-          </div>
-        </div>
-        <div className="PagamentosSearch_statItem">
-          <div style={{ marginLeft: "1px" }}>TOTAL CONTADOR CRÉDITO</div>
-          <div className="PagamentosSearch_nbList">
-            {contadorcredito ? new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(contadorcredito) : "-"}
-          </div>
-        </div>
-        <div className="PagamentosSearch_statItem">
-          <div style={{ marginLeft: "1px" }}>TOTAL CONTADOR PELÚCIA</div>
-          <div className="PagamentosSearch_nbList">
-            {contadorpelucia ? new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(contadorpelucia) : "-"}
-          </div>
-        </div>
-        <div className="PagamentosSearch_statItem">
-          <div style={{ marginLeft: "1px" }}>TOTAL</div>
-          <div className="PagamentosSearch_nbList">
-            {total ? new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(total) : "-"}
-          </div>
-        </div>
-      </div>
-      <div className="PagamentosSearch_table">
-        <Table
-          columns={columns}
-          dataSource={listCanals}
-          loading={loadingTable}
-          pagination={false}
-        />
       </div>
     </div>
   );
