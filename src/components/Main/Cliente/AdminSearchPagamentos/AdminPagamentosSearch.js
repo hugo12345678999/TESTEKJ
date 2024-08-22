@@ -51,16 +51,15 @@ const AdminPagamentosSearch = (props) => {
 
   const { id } = useParams();
   const { RangePicker } = DatePicker;
-
   useEffect(() => {
     getData(id);
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     if (dataFim != null) {
       getPaymentsPeriod(dataInicio, dataFim);
     }
-  }, [dataInicio, dataFim]);
+  }, [dataFim]);
 
   const getData = (id) => {
     if (id.trim() !== "") {
@@ -73,7 +72,7 @@ const AdminPagamentosSearch = (props) => {
           },
         })
         .then((res) => {
-          console.log(res.data); // Verificar a estrutura dos dados recebidos
+          console.log(res.data); // Verificar a estrutura dos dados recebidosjgit
           setLoadingTable(false);
           setEstornos(res.data.estornos);
           setCash(res?.data?.cash);
@@ -85,6 +84,7 @@ const AdminPagamentosSearch = (props) => {
           setEstoque3(res?.data?.estoque3);
           setEstoque4(res?.data?.estoque4);
           setEstoque5(res?.data?.estoque5);
+
           setTotal(res.data.total);
           if (res.status === 200 && Array.isArray(res.data.pagamentos)) {
             setListCanals(res.data.pagamentos);
@@ -159,7 +159,7 @@ const AdminPagamentosSearch = (props) => {
       title: "Forma de pagamento",
       dataIndex: "tipo",
       key: "tipo",
-      render: (tipo) => (
+      render: (tipo, record) => (
         <span>
           {tipo === "bank_transfer"
             ? "PIX"
@@ -218,11 +218,6 @@ const AdminPagamentosSearch = (props) => {
     },
   ];
 
-  const formatNumberWithLeadingZeros = (number, length) => {
-    const numStr = number.toString();
-    return numStr.padStart(length, '0');
-  };
-
   const onRelatorioHandler = () => {
     if (!dataInicio && !dataFim) {
       setNotiMessage({
@@ -242,6 +237,7 @@ const AdminPagamentosSearch = (props) => {
       {isLoading && <LoadingAction />}
       <div className="Admin_PagamentosSearch_header">
         <div className="Admin_PagamentosSearch_header_left">
+         
           <Button
             className="Admin_PagamentosSearch_header_editBtn"
             onClick={() => {
@@ -261,6 +257,7 @@ const AdminPagamentosSearch = (props) => {
               });
             }}
           >
+       
             <AiFillDelete />
             <span>Excluir Pagamentos</span>
           </Button>
@@ -274,7 +271,7 @@ const AdminPagamentosSearch = (props) => {
             }}
           >
             <AiFillDollarCircle />
-            <span>Credito Remoto</span>
+            <span>credito remoto</span>
           </Button>
           <Button
             className="Admin_PagamentosSearch_header_editBtn"
@@ -284,7 +281,7 @@ const AdminPagamentosSearch = (props) => {
               });
             }}
           >
-            <AiOutlineEdit />
+           <AiOutlineEdit />
             <span>CONFIGURAR GRUA</span>
           </Button>
           
@@ -293,7 +290,7 @@ const AdminPagamentosSearch = (props) => {
               style={{ marginBottom: "2px", marginRight: "2px" }}
               icon={faSearch}
               onClick={() => getPaymentsPeriod(dataInicio, dataFim)}
-            />
+            ></FontAwesomeIcon>
             <RangePicker
               style={{ border: "1px solid", borderRadius: "4px" }}
               placeholder={["Data Inicial", "Data Final"]}
@@ -308,7 +305,7 @@ const AdminPagamentosSearch = (props) => {
             onClick={() => onRelatorioHandler()}
           >
             <img
-              style={{ width: "20px", marginRight: "2px" }}
+              style={{ width: "2px", marginRight: "2px" }}
               src={notes}
               alt="notes"
             />
@@ -373,25 +370,25 @@ const AdminPagamentosSearch = (props) => {
               <div className="Admin_PagamentosSearch_nbList">
                 {maquinaInfos.store_id}
               </div>
-
+             
               <div style={{ marginLeft: "1px" }}>SAIDA DE PELUCIA</div>
               <div className="Admin_PagamentosSearch_nbList">
-             {estoque ?? "-"}
+                {estoque ?? "-"}
               </div>
               <div style={{ marginLeft: "1px" }}>RELOGIO CREDITO</div>
               <div className="Admin_PagamentosSearch_nbList1">
-                {formatNumberWithLeadingZeros(contadorcredito, 6) ?? "-"}
+                {"0000"+contadorcredito ?? "-"}
               </div>
               <div style={{ marginLeft: "1px" }}>RELOGIO PELUCIA</div>
               <div className="Admin_PagamentosSearch_nbList1">
-                {formatNumberWithLeadingZeros(estoque, 6) ?? "-"}
+                {"0000"+estoque ?? "-"}
               </div>
             </div>
 
             {maquinaInfos.store_id && (
               <Link
                 target="_blank"
-                to={`https://www.mercadopago.com.br/stores/detail?store_id=${maquinaInfos.store_id}`}
+                to={`//www.mercadopago.com.br/stores/detail?store_id=${maquinaInfos.store_id}`}
               >
                 <img
                   className="Admin_PagamentosSearch_QR_Icon"
@@ -401,9 +398,7 @@ const AdminPagamentosSearch = (props) => {
               </Link>
             )}
           </div>
-          <div className="Admin_PagamentosSearch_description">
-            {`${maquinaInfos?.nome} - ${maquinaInfos?.descricao}`}
-          </div>
+          <div className="Admin_PagamentosSearch_description">{`${maquinaInfos?.nome} - ${maquinaInfos?.descricao}`}</div>
 
           <Table
             columns={columns}
