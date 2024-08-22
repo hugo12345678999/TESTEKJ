@@ -11,7 +11,7 @@
   justify-content: space-between;
 }
 
-.Admin_PagamentosSearch_header_left {
+.Admin_PagamentosSearch_header_left {//hugo
   display: flex;
   align-items: center;
 }
