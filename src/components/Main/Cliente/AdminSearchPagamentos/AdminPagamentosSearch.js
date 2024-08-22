@@ -19,7 +19,7 @@ import {
   AiFillDollarCircle,
 } from "react-icons/ai";
 import qr_code_icon from "../../../../assets/images/QR.png";
-import notes from "../../../../assets/images/notes.png";
+import notes from "../../../../assets/images/notes.png";//hugo
 
 const AdminPagamentosSearch = (props) => {
   const location = useLocation();
