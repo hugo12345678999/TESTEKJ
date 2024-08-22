@@ -73,6 +73,7 @@ const AdminPagamentosSearch = (props) => {
           },
         })
         .then((res) => {
+          console.log(res.data); // Verificar a estrutura dos dados recebidos
           setLoadingTable(false);
           setEstornos(res.data.estornos);
           setCash(res?.data?.cash);
@@ -219,7 +220,7 @@ const AdminPagamentosSearch = (props) => {
 
   const formatNumberWithLeadingZeros = (number, length) => {
     const numStr = number.toString();
-    return numStr.padStart(length, "0");
+    return numStr.padStart(length, '0');
   };
 
   const onRelatorioHandler = () => {
@@ -227,7 +228,7 @@ const AdminPagamentosSearch = (props) => {
       setNotiMessage({
         type: "error",
         message:
-          "Selecione no calendario a esquerda a data de inicio e fim para gerar o relatorio para essa maquina!",
+          "Selecione no calendario a esquerda a data de inicio e fi para gerar o relatorio para essa maquina!",
       });
     } else {
       navigate(`${links.RELATORIO_ADMIN}/${id}`, {
@@ -267,98 +268,156 @@ const AdminPagamentosSearch = (props) => {
           <Button
             className="Admin_PagamentosSearch_header_editBtn"
             onClick={() => {
-              navigate(`${links.CLIENTES_MAQUINA_DELETE_PAGAMENTOS}/${id}`, {
+              navigate(`${links.CREDITO_REMOTO_ADM}/${maquinaInfos.id}`, {
                 state: location.state,
               });
             }}
           >
             <AiFillDollarCircle />
-            <span>Retorno Manual</span>
+            <span>Credito Remoto</span>
           </Button>
-
           <Button
             className="Admin_PagamentosSearch_header_editBtn"
-            onClick={onRelatorioHandler}
+            onClick={() => {
+              navigate(`${links.GRUA_ADM}/${maquinaInfos.id}`, {
+                state: location.state,
+              });
+            }}
+          >
+            <AiOutlineEdit />
+            <span>CONFIGURAR GRUA</span>
+          </Button>
+          
+          <div className="Admin_PagamentosSearch_datePicker">
+            <FontAwesomeIcon
+              style={{ marginBottom: "2px", marginRight: "2px" }}
+              icon={faSearch}
+              onClick={() => getPaymentsPeriod(dataInicio, dataFim)}
+            />
+            <RangePicker
+              style={{ border: "1px solid", borderRadius: "4px" }}
+              placeholder={["Data Inicial", "Data Final"]}
+              onChange={(dates, dateStrings) => {
+                setDataInicio(dateStrings ? dateStrings[0] : null);
+                setDataFim(dateStrings ? dateStrings[1] : null);
+              }}
+            />
+          </div>
+          <Button
+            className="Admin_PagamentosSearch_header_editBtn"
+            onClick={() => onRelatorioHandler()}
           >
             <img
-              className="Admin_PagamentosSearch_qr_code"
-              src={qr_code_icon}
-              alt="qr_code_icon"
+              style={{ width: "20px", marginRight: "2px" }}
+              src={notes}
+              alt="notes"
             />
             <span>Relatório</span>
           </Button>
-        </div>
-
-        <div className="Admin_PagamentosSearch_header_right">
-          <RangePicker
-            className="Admin_PagamentosSearch_rangePicker"
-            format="DD/MM/YYYY"
-            placeholder={["Início", "Fim"]}
-            onChange={(dates, dateStrings) => {
-              setDataInicio(dateStrings[0]);
-              setDataFim(dateStrings[1]);
-            }}
-          />
-
           <Button
-            className="Admin_PagamentosSearch_btn"
+            className="Admin_PagamentosSearch_header_editBtn"
             onClick={() => {
-              getPaymentsPeriod(dataInicio, dataFim);
+              navigate(`${links.CLIENTES_MAQUINAS_TROCAR}/${id}`, {
+                state: location.state,
+              });
             }}
           >
-            <FontAwesomeIcon icon={faSearch} />
-          </Button>
-
-          <Button
-            className="Admin_PagamentosSearch_btn"
-            onClick={() => {
-              getData(id);
-              setDataInicio(null);
-              setDataFim(null);
-            }}
-          >
-            <FontAwesomeIcon icon={faArrowsRotate} />
+            <FontAwesomeIcon
+              icon={faArrowsRotate}
+              style={{ marginRight: "2px" }}
+            />
+            <span>ID</span>
           </Button>
         </div>
+        <Button
+          className="Admin_PagamentosSearch_header_back"
+          onClick={() =>
+            navigate(`${links.CLIENTES_MAQUINAS}/${clienteInfo.id}`, {
+              state: location.state.clienteInfo,
+            })
+          }
+        >
+          VOLTAR
+        </Button>
       </div>
-
       <div className="Admin_PagamentosSearch_body">
-        <div className="Admin_PagamentosSearch_body_left">
-          <div className="Admin_PagamentosSearch_titulo">Estatísticas</div>
-          <div className="Admin_PagamentosSearch_info">
-            <div className="Admin_PagamentosSearch_info_item">
-              <label>Créditos: </label>
-              <span className="Admin_PagamentosSearch_contador">
-                {formatNumberWithLeadingZeros(contadorcredito, 4)}
-              </span>
+        <div className="Admin_PagamentosSearch_content">
+          <div
+            className="Admin_PagamentosSearch_titleList_main"
+            style={{ marginBottom: "2px" }}
+          >
+            <div className="Admin_PagamentosSearch_titleList">
+              <div style={{ marginLeft: "2px" }}>Total</div>
+              <div className="Admin_PagamentosSearch_nbList">
+                {Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(total)}
+              </div>
+              <div style={{ marginLeft: "1px" }}>Estornos</div>
+              <div className="Admin_PagamentosSearch_nbList">
+                {Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(estornos)}
+              </div>
+              <div style={{ marginLeft: "1px" }}>Espécie</div>
+              <div className="Admin_PagamentosSearch_nbList">
+                {Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(cash)}
+              </div>
+
+              <div style={{ marginLeft: "1px" }}>ID</div>
+              <div className="Admin_PagamentosSearch_nbList">
+                {maquinaInfos.store_id}
+              </div>
+
+              <div style={{ marginLeft: "1px" }}>SAIDA DE PELUCIA</div>
+              <div className="Admin_PagamentosSearch_nbList">
+             {estoque ?? "-"}
+              </div>
+              <div style={{ marginLeft: "1px" }}>RELOGIO CREDITO</div>
+              <div className="Admin_PagamentosSearch_nbList1">
+                {formatNumberWithLeadingZeros(contadorcredito, 6) ?? "-"}
+              </div>
+              <div style={{ marginLeft: "1px" }}>RELOGIO PELUCIA</div>
+              <div className="Admin_PagamentosSearch_nbList1">
+                {formatNumberWithLeadingZeros(estoque, 6) ?? "-"}
+              </div>
             </div>
 
-            <div className="Admin_PagamentosSearch_info_item">
-              <label>Pelúcias: </label>
-              <span className="Admin_PagamentosSearch_contador">
-                {formatNumberWithLeadingZeros(contadorpelucia, 4)}
-              </span>
-            </div>
-
-            <div className="Admin_PagamentosSearch_info_item">
-              <label>Dinheiro: </label>
-              <span className="Admin_PagamentosSearch_contador">
-                {cash
-                  ? new Intl.NumberFormat("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    }).format(cash)
-                  : "R$ 0,00"}
-              </span>
-            </div>
+            {maquinaInfos.store_id && (
+              <Link
+                target="_blank"
+                to={`https://www.mercadopago.com.br/stores/detail?store_id=${maquinaInfos.store_id}`}
+              >
+                <img
+                  className="Admin_PagamentosSearch_QR_Icon"
+                  src={qr_code_icon}
+                  alt="QR"
+                />
+              </Link>
+            )}
           </div>
-        </div>
-        <div className="Admin_PagamentosSearch_body_right">
+          <div className="Admin_PagamentosSearch_description">
+            {`${maquinaInfos?.nome} - ${maquinaInfos?.descricao}`}
+          </div>
+
           <Table
-            dataSource={listCanals}
             columns={columns}
-            pagination={{ pageSize: 10 }}
+            dataSource={listCanals}
+            pagination={false}
             loading={loadingTable}
+            locale={{
+              emptyText:
+                searchText.trim() !== "" ? (
+                  "-"
+                ) : (
+                  <div>Não foram encontrados resultados para sua pesquisa.</div>
+                ),
+            }}
           />
         </div>
       </div>
