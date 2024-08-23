@@ -230,7 +230,10 @@ const PagamentosSearch = (props) => {
         ),
     },
   ];
-
+const formatNumberWithLeadingZeros = (number, length) => {
+  const numStr = number.toString();
+  return numStr.padStart(length, '0');
+};
   const onRelatorioHandler = () => {
     if (!dataInicio && !dataFim) {
       setNotiMessage({
