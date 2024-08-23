@@ -369,12 +369,14 @@ const formatNumberWithLeadingZeros = (number, length) => {
               <div style={{ marginLeft: "20px" }}>Store ID</div>
               <div className="PagamentosSearch_nbList">{maquinaInfos.storeId}
               </div>
-              <div style={{ marginLeft: "1px" }}>SAIDA DE PELUCIA</div>
-              <div className="PagamentosSearch_nbList">{estoque ?? "-"}</div>
-              <div style={{ marginLeft: "1px" }}>CONTADOR CREDITO</div>
-              <div className="PagamentosSearch_nbList">{contadorcredito ?? "-"}</div>
-              <div style={{ marginLeft: "1px" }}>CONTADOR PELUCIA</div>
-              <div className="PagamentosSearch_nbList">{contadorpelucia ?? "-"}</div>
+              <div style={{ marginLeft: "1px" }}>RELOGIO CREDITO</div>
+              <div className="PagamentosSearch_nbList1">
+                {formatNumberWithLeadingZeros(contadorcredito, 6) ?? "-"}
+              </div>
+             <div style={{ marginLeft: "1px" }}>RELOGIO PELUCIA</div>
+              <div className="PagamentosSearch_nbList1">
+                {formatNumberWithLeadingZeros(estoque, 6) ?? "-"}
+              </div>
              
             </div>
             {maquinaInfos.storeId && (
