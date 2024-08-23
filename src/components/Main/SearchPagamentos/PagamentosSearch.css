@@ -10,7 +10,15 @@
   align-items: center;
   justify-content: space-between;
 }
-
+.PagamentosSearch_nbList1 {
+  margin-left: 5px;
+  background: #000000;
+  color: #FFFFFF;
+  border-radius: 4px;
+  padding: 2px 5px;
+  font-size: 16px;
+  font-weight: 600;
+}
 .PagamentosSearch_header_left {
   display: flex;
   align-items: center;
