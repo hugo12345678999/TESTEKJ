@@ -186,33 +186,10 @@ const EditPagamento = (props) => {
             </div>
           )}
         </div>
-        <div className="Update_Pagamento_itemField">
-          <label className="Update_Pagamento_itemFieldLabel" htmlFor="estoque">
-            SAIDA DE PELUCIA:
-          </label>
-          <Input
-            placeholder={"1.50"}
-            value={data.estoque}
-            id="estoque"
-            type="number"
-            name="estoque"
-            autoComplete="estoque"
-            onChange={(event) => {
-              handleChange("estoque", event.target.value);
-            }}
-            className={`${
-              !!errors.estoque ? "Update_Pagamento_inputError" : ""
-            }`}
-          />
-          {errors.estoque && (
-            <div className="Update_Pagamento_itemFieldError">
-              {errors.estoque}
-            </div>
-          )}
-        </div>
+       
         <div className="Update_Pagamento_itemField">
           <label className="Update_Pagamento_itemFieldLabel" htmlFor="contadorcredito">
-            CONTADOR CREDITO:
+            RELOGIO CREDITO:
           </label>
           <Input
             placeholder={"1.50"}
@@ -236,15 +213,15 @@ const EditPagamento = (props) => {
         </div>
         <div className="Update_Pagamento_itemField">
           <label className="Update_Pagamento_itemFieldLabel" htmlFor="contadorpelucia">
-            CONTADOR PELUCIA:
+            RELOGIO PELUCIA:
           </label>
           <Input
             placeholder={"1.50"}
-            value={data.contadorpelucia}
-            id="contadorpelucia"
+            value={data.estoque}
+            id="estoque"
             type="number"
-            name="contadorpelucia"
-            autoComplete="contadorpelucia"
+            name="estoque"
+            autoComplete="estoque"
             onChange={(event) => {
               handleChange("contadorpelucia", event.target.value);
             }}
