@@ -19,7 +19,7 @@ const AdminPagamentosSearch = () => {
 
   const navigate = useNavigate();
   const token = authInfo?.dataUser?.token;
-
+ const mercadoPagoToken = authInfo?.dataUser?.mercadoPagoToken;
   const [isLoading, setIsLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [listCanals, setListCanals] = useState([]);
