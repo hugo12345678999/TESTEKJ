@@ -3,9 +3,10 @@ import LoadingAction from "../../../../themes/LoadingAction/LoadingAction";
 import "./AdminPagamentosSearch.css";
 import { Button, Table } from "antd";
 import { AuthContext } from "../../../../contexts/AuthContext";
-import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { DatePicker } from "antd";
 import "antd/dist/antd.css";
@@ -23,7 +24,6 @@ import notes from "../../../../assets/images/notes.png";
 const AdminPagamentosSearch = (props) => {
   const location = useLocation();
   const { maquinaInfos, clienteInfo } = location.state;
-
   const { setDataUser, authInfo, setNotiMessage } = useContext(AuthContext);
 
   let navigate = useNavigate();
@@ -37,17 +37,11 @@ const AdminPagamentosSearch = (props) => {
   const [estoque, setEstoque] = useState("");
   const [contadorcredito, setContadorCredito] = useState("");
   const [contadorpelucia, setContadorPelucia] = useState("");
-  const [estoque2, setEstoque2] = useState("");
-  const [estoque3, setEstoque3] = useState("");
-  const [estoque4, setEstoque4] = useState("");
-  const [estoque5, setEstoque5] = useState("");
   const [cash, setCash] = useState("");
   const [total, setTotal] = useState("");
   const [loadingTable, setLoadingTable] = useState(false);
   const [dataInicio, setDataInicio] = useState(null);
   const [dataFim, setDataFim] = useState(null);
-  const [dataMaquinas, setDataMaquinas] = useState(null);
-
   const { id } = useParams();
   const { RangePicker } = DatePicker;
 
@@ -72,7 +66,6 @@ const AdminPagamentosSearch = (props) => {
           },
         })
         .then((res) => {
-          console.log(res.data); // Verificar a estrutura dos dados recebidos
           setLoadingTable(false);
           setEstornos(res.data.estornos);
           setCash(res?.data?.cash);
@@ -80,10 +73,6 @@ const AdminPagamentosSearch = (props) => {
           setEstoque(res?.data?.estoque);
           setContadorCredito(res?.data?.contadorcredito);
           setContadorPelucia(res?.data?.contadorpelucia);
-          setEstoque2(res?.data?.estoque2);
-          setEstoque3(res?.data?.estoque3);
-          setEstoque4(res?.data?.estoque4);
-          setEstoque5(res?.data?.estoque5);
           setTotal(res.data.total);
           if (res.status === 200 && Array.isArray(res.data.pagamentos)) {
             setListCanals(res.data.pagamentos);
@@ -144,10 +133,10 @@ const AdminPagamentosSearch = (props) => {
     }
   };
 
-  const createPointPaymentIntent = () => {
-    const url = 'https://api.mercadopago.com/point/integration-api/devices/GERTEC_MP35P__8701442347041298/payment-intents';
+  const createPaymentPoint = () => {
+    const url = '/pagamento-point'; // URL da sua API
     const headers = {
-      Authorization: 'Bearer APP_USR-1586240537053971-100817-e995d67c6a80ebacaaadbabd0bde449b-344946086',
+      Authorization: `Bearer APP_USR-1586240537053971-100817-e995d67c6a80ebacaaadbabd0bde449b-344946086`,
       'Content-Type': 'application/json',
     };
     const body = {
@@ -161,17 +150,17 @@ const AdminPagamentosSearch = (props) => {
 
     axios.post(url, body, { headers })
       .then(response => {
-        console.log('Pagamento criado com sucesso:', response.data);
+        console.log('Pagamento Point criado com sucesso:', response.data);
         setNotiMessage({
           type: 'success',
-          message: 'Pagamento criado com sucesso.',
+          message: 'Pagamento Point criado com sucesso.',
         });
       })
       .catch(error => {
-        console.error('Erro ao criar pagamento:', error);
+        console.error('Erro ao criar pagamento Point:', error);
         setNotiMessage({
           type: 'error',
-          message: 'Erro ao criar pagamento.',
+          message: 'Erro ao criar pagamento Point.',
         });
       });
   };
@@ -224,178 +213,102 @@ const AdminPagamentosSearch = (props) => {
       dataIndex: "estornado",
       key: "estornado",
       width: 100,
-      render: (estornado, record) =>
-        estornado ? (
+      render: (estornado) => (
+        <span>{estornado ? "Sim" : "Não"}</span>
+      ),
+    },
+    {
+      title: "Ações",
+      key: "acoes",
+      width: 150,
+      render: (_, record) => (
+        <div className="Admin_PagamentosSearch_header_actionBtns">
           <OverlayTrigger
-            key={record.key}
             placement="top"
-            overlay={
-              <Tooltip id={`tooltip-top-${record.key}`}>
-                {record.motivoEstorno
-                  ? record.motivoEstorno
-                  : "Sem motivo registrado"}
-              </Tooltip>
-            }
+            overlay={<Tooltip>Ver QR Code</Tooltip>}
           >
-            <span style={{ color: "gray", cursor: "pointer" }}>
-              {estornado ? "Estornado" : "Recebido"}
-            </span>
+            <Button
+              className="Admin_PagamentosSearch_header_actionBtn"
+              onClick={() =>
+                window.open(`http://localhost:5000/qrcode/${record.id}`)
+              }
+            >
+              <img src={qr_code_icon} alt="QR Code" />
+            </Button>
           </OverlayTrigger>
-        ) : (
-          <span style={{ color: estornado ? "gray" : "green" }}>
-            {estornado ? "Estornado" : "Recebido"}
-          </span>
-        ),
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>Estornar Pagamento</Tooltip>}
+          >
+            <Button
+              className="Admin_PagamentosSearch_header_actionBtn"
+              onClick={() => handleEstorno(record.id)}
+            >
+              <AiFillDelete />
+            </Button>
+          </OverlayTrigger>
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>Editar</Tooltip>}
+          >
+            <Button
+              className="Admin_PagamentosSearch_header_actionBtn"
+              onClick={() => handleEdit(record.id)}
+            >
+              <AiOutlineEdit />
+            </Button>
+          </OverlayTrigger>
+        </div>
+      ),
     },
   ];
 
-  const formatNumberWithLeadingZeros = (number, length) => {
-    const numStr = number.toString();
-    return numStr.padStart(length, '0');
+  const handleEstorno = (id) => {
+    // Implementar função para estorno
   };
 
-  const onRelatorioHandler = () => {
-    if (!dataInicio && !dataFim) {
-      setNotiMessage({
-        type: "error",
-        message:
-          "Selecione no calendario a esquerda a data de inicio e data fim",
-      });
-      return;
-    }
-    if (dataInicio > dataFim) {
-      setNotiMessage({
-        type: "error",
-        message: "A data final deve ser maior que a inicial",
-      });
-      return;
-    }
-    getPaymentsPeriod(dataInicio, dataFim);
-  };
-
-  const onDataInicioChange = (date, dateString) => {
-    setDataInicio(dateString);
-  };
-
-  const onDataFimChange = (date, dateString) => {
-    setDataFim(dateString);
-  };
-
-  const formatMoney = (value) => {
-    if (typeof value === "number") {
-      return new Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      }).format(value);
-    }
-    return value;
+  const handleEdit = (id) => {
+    // Implementar função para edição
   };
 
   return (
-    <div className="Admin_PagamentosSearch_container">
-      {isLoading && <LoadingAction />}
+    <div className="Admin_PagamentosSearch">
       <div className="Admin_PagamentosSearch_header">
-        <div className="Admin_PagamentosSearch_header_left">
-          <Button
-            className="Admin_PagamentosSearch_header_editBtn"
-            onClick={() => {
-              navigate(`${links.CLIENTES_MAQUINAS_EDIT_FORNECEDOR}/${id}`, {
-                state: location.state,
-              });
-            }}
-          >
-            <AiOutlineEdit />
-            <span>Editar</span>
-          </Button>
-          <Button
-            className="Admin_PagamentosSearch_header_editBtn"
-            onClick={createPointPaymentIntent}
-          >
-            Pontos
-          </Button>
-        </div>
         <Button
-          className="Admin_PagamentosSearch_header_back"
-          onClick={() =>
-            navigate(`${links.CLIENTES_MAQUINAS}/${clienteInfo.id}`, {
-              state: location.state.clienteInfo,
-            })
-          }
+          className="Admin_PagamentosSearch_header_editBtn"
+          onClick={() => createPaymentPoint()}
         >
-          VOLTAR
+          Criar Pagamento Point
         </Button>
-      </div>
-      <div className="Admin_PagamentosSearch_body">
-        <div className="Admin_PagamentosSearch_body_top">
-          <div className="Admin_PagamentosSearch_body_top_left">
-            <RangePicker
-              format="DD/MM/YYYY"
-              onChange={(dates) => {
-                if (dates) {
-                  setDataInicio(dates[0]?.format("YYYY-MM-DD"));
-                  setDataFim(dates[1]?.format("YYYY-MM-DD"));
-                }
-              }}
-            />
-            <Button onClick={onRelatorioHandler}>
-              <FontAwesomeIcon icon={faSearch} />
-              <span>Buscar</span>
-            </Button>
-            <Button
-              onClick={() => {
-                setDataInicio(null);
-                setDataFim(null);
-                getData(id);
-              }}
-            >
-              <FontAwesomeIcon icon={faArrowsRotate} />
-              <span>Limpar</span>
-            </Button>
-          </div>
+        <Button
+          className="Admin_PagamentosSearch_header_editBtn"
+          onClick={() => getData(id)}
+        >
+          Atualizar
+        </Button>
+        <div className="Admin_PagamentosSearch_header_datePicker">
+          <RangePicker
+            format="DD/MM/YYYY"
+            onChange={(dates) => {
+              if (dates) {
+                setDataInicio(dates[0].format("YYYY-MM-DD"));
+                setDataFim(dates[1].format("YYYY-MM-DD"));
+              }
+            }}
+          />
         </div>
+      </div>
+      {loadingTable ? (
+        <LoadingAction />
+      ) : (
         <Table
-          dataSource={listCanals}
           columns={columns}
-          rowKey="id"
-          loading={loadingTable}
+          dataSource={listCanals}
           pagination={false}
+          rowKey="id"
+          scroll={{ x: 1300 }}
         />
-        <div className="Admin_PagamentosSearch_summary">
-          <div className="Admin_PagamentosSearch_summary_item">
-            <strong>Estornos:</strong> {formatMoney(estornos)}
-          </div>
-          <div className="Admin_PagamentosSearch_summary_item">
-            <strong>Cash:</strong> {formatMoney(cash)}
-          </div>
-          <div className="Admin_PagamentosSearch_summary_item">
-            <strong>Probabilidade:</strong> {formatMoney(probabilidade)}
-          </div>
-          <div className="Admin_PagamentosSearch_summary_item">
-            <strong>Estoque:</strong> {formatMoney(estoque)}
-          </div>
-          <div className="Admin_PagamentosSearch_summary_item">
-            <strong>Contador Crédito:</strong> {formatNumberWithLeadingZeros(contadorcredito, 6)}
-          </div>
-          <div className="Admin_PagamentosSearch_summary_item">
-            <strong>Contador Pelúcia:</strong> {formatNumberWithLeadingZeros(contadorpelucia, 6)}
-          </div>
-          <div className="Admin_PagamentosSearch_summary_item">
-            <strong>Estoque 2:</strong> {formatMoney(estoque2)}
-          </div>
-          <div className="Admin_PagamentosSearch_summary_item">
-            <strong>Estoque 3:</strong> {formatMoney(estoque3)}
-          </div>
-          <div className="Admin_PagamentosSearch_summary_item">
-            <strong>Estoque 4:</strong> {formatMoney(estoque4)}
-          </div>
-          <div className="Admin_PagamentosSearch_summary_item">
-            <strong>Estoque 5:</strong> {formatMoney(estoque5)}
-          </div>
-          <div className="Admin_PagamentosSearch_summary_item">
-            <strong>Total:</strong> {formatMoney(total)}
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
