@@ -290,7 +290,7 @@ const AdminPagamentosSearch = (props) => {
           <Button
             className="Admin_PagamentosSearch_header_editBtn"
             onClick={() => {
-              navigate(`${links.POINT_ADM}/${maquinaInfos.id}`, {
+              navigate(`${links.GRUA_ADM}/${maquinaInfos.id}`, {
                 state: location.state,
               });
             }}
