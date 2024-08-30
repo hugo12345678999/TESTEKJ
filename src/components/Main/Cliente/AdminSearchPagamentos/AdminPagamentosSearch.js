@@ -127,7 +127,7 @@ const AdminPagamentosSearch = () => {
   const createPaymentPoint = () => {
     const url = `${process.env.REACT_APP_SERVIDOR}/pagamento-point`;
     const headers = {
-      Authorization: `Bearer token`,
+      Authorization: `Bearer mercadoPagoToken`,
       'Content-Type': 'application/json',
     };
     const body = {
