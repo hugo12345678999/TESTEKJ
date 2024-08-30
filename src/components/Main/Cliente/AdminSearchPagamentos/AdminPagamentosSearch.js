@@ -148,7 +148,7 @@ const AdminPagamentosSearch = (props) => {
   const handlePointRequest = () => {
     axios
       .post(
-        `${process.env.REACT_APP_SERVIDOR}/pagamento-point/${id}',
+        `${process.env.REACT_APP_SERVIDOR}/pagamento-point/${id}`,
         {},
         {
           headers: {
