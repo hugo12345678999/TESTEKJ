@@ -3,30 +3,21 @@ import LoadingAction from "../../../../themes/LoadingAction/LoadingAction";
 import "./AdminPagamentosSearch.css";
 import { Button, Table } from "antd";
 import { AuthContext } from "../../../../contexts/AuthContext";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { DatePicker } from "antd";
 import "antd/dist/antd.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
-import * as links from "../../../../utils/links";
-import {
-  AiOutlineEdit,
-  AiFillDelete,
-  AiFillDollarCircle,
-} from "react-icons/ai";
+import { AiOutlineEdit, AiFillDelete } from "react-icons/ai";
 import qr_code_icon from "../../../../assets/images/QR.png";
-import notes from "../../../../assets/images/notes.png";
 
-const AdminPagamentosSearch = (props) => {
+const AdminPagamentosSearch = () => {
   const location = useLocation();
   const { maquinaInfos, clienteInfo } = location.state;
   const { setDataUser, authInfo, setNotiMessage } = useContext(AuthContext);
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const token = authInfo?.dataUser?.token;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -134,7 +125,7 @@ const AdminPagamentosSearch = (props) => {
   };
 
   const createPaymentPoint = () => {
-    const url = '/pagamento-point'; // URL da sua API
+    const url = `${process.env.REACT_APP_SERVIDOR}/pagamento-point`;
     const headers = {
       Authorization: `Bearer APP_USR-1586240537053971-100817-e995d67c6a80ebacaaadbabd0bde449b-344946086`,
       'Content-Type': 'application/json',
