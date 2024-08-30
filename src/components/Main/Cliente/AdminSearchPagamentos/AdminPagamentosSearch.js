@@ -66,7 +66,7 @@ const AdminPagamentosSearch = (props) => {
     if (id.trim() !== "") {
       setLoadingTable(true);
       axios
-        .get(`${process.env.REACT_APP_SERVIDOR}/pagamentos-adm/${id}`, {
+        .get(${process.env.REACT_APP_SERVIDOR}/pagamentos-adm/${id}, {
           headers: {
             "x-access-token": token,
             "content-type": "application/json",
@@ -107,7 +107,7 @@ const AdminPagamentosSearch = (props) => {
   const getPaymentsPeriod = (dataInicio, dataFim) => {
     if (id.trim() !== "") {
       setLoadingTable(true);
-      const url = `${process.env.REACT_APP_SERVIDOR}/pagamentos-periodo-adm/${id}`;
+      const url = ${process.env.REACT_APP_SERVIDOR}/pagamentos-periodo-adm/${id};
       axios
         .post(
           url,
@@ -143,37 +143,6 @@ const AdminPagamentosSearch = (props) => {
           }
         });
     }
-  };
-
-  const handlePointRequest = () => {
-    axios
-      .post(
-        `${process.env.REACT_APP_SERVIDOR}/pagamento-point/${id}`,
-        {},
-        {
-          headers: {
-            "x-access-token": token,
-            "content-type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        // Manipule a resposta da requisição aqui
-        console.log(res.data);
-        // Exiba uma notificação ou execute outra ação com base na resposta
-        setNotiMessage({
-          type: "success",
-          message: "Requisição 'Point' realizada com sucesso!",
-        });
-      })
-      .catch((err) => {
-        // Manipule o erro aqui
-        console.error(err);
-        setNotiMessage({
-          type: "error",
-          message: "Erro ao realizar a requisição 'Point'.",
-        });
-      });
   };
 
   const columns = [
@@ -230,7 +199,7 @@ const AdminPagamentosSearch = (props) => {
             key={record.key}
             placement="top"
             overlay={
-              <Tooltip id={`tooltip-top-${record.key}`}>
+              <Tooltip id={tooltip-top-${record.key}}>
                 {record.motivoEstorno
                   ? record.motivoEstorno
                   : "Sem motivo registrado"}
@@ -258,60 +227,195 @@ const AdminPagamentosSearch = (props) => {
     if (!dataInicio && !dataFim) {
       setNotiMessage({
         type: "error",
-        message: "Selecione um período para gerar o relatório.",
+        message:
+          "Selecione no calendario a esquerda a data de inicio e fi para gerar o relatorio para essa maquina!",
       });
-      return;
+    } else {
+      navigate(${links.RELATORIO_ADMIN}/${id}, {
+        state: { maquinaInfos, clienteInfo, dataInicio, dataFim },
+      });
     }
-    window.open(
-      `${process.env.REACT_APP_SERVIDOR}/pagamentos-periodo-adm-relatorio/${id}?dataInicio=${dataInicio}&dataFim=${dataFim}`,
-      "_blank"
-    );
   };
 
   return (
-    <div>
-      <h1>Admin Pagamentos</h1>
-      <Button
-        type="primary"
-        onClick={() => getData(id)}
-        icon={<FontAwesomeIcon icon={faArrowsRotate} />}
-      >
-        Atualizar
-      </Button>
-      <Button
-        type="primary"
-        onClick={onRelatorioHandler}
-        style={{ marginLeft: "10px" }}
-        icon={<FontAwesomeIcon icon={faSearch} />}
-      >
-        Gerar Relatório
-      </Button>
-      <Button
-        type="primary"
-        onClick={handlePointRequest}
-        style={{ marginLeft: "10px" }}
-      >
-        Point
-      </Button>
-      <RangePicker
-        onChange={(dates) => {
-          if (dates) {
-            setDataInicio(moment(dates[0]).format("YYYY-MM-DD"));
-            setDataFim(moment(dates[1]).format("YYYY-MM-DD"));
-          }
-        }}
-        format="DD/MM/YYYY"
-      />
-      <Table
-        dataSource={listCanals}
-        columns={columns}
-        loading={loadingTable}
-        rowKey="id"
-        pagination={{ pageSize: 10 }}
-      />
+    <div className="Admin_PagamentosSearch_container">
       {isLoading && <LoadingAction />}
+      <div className="Admin_PagamentosSearch_header">
+        <div className="Admin_PagamentosSearch_header_left">
+          <Button
+            className="Admin_PagamentosSearch_header_editBtn"
+            onClick={() => {
+              navigate(${links.CLIENTES_MAQUINAS_EDIT_FORNECEDOR}/${id}, {
+                state: location.state,
+              });
+            }}
+          >
+            <AiOutlineEdit />
+            <span>Editar</span>
+          </Button>
+          <Button
+            className="Admin_PagamentosSearch_header_editBtn"
+            onClick={() => {
+              navigate(${links.CLIENTES_MAQUINA_DELETE_PAGAMENTOS}/${id}, {
+                state: location.state,
+              });
+            }}
+          >
+            <AiFillDelete />
+            <span>Excluir Pagamentos</span>
+          </Button>
+
+          <Button
+            className="Admin_PagamentosSearch_header_editBtn"
+            onClick={() => {
+              navigate(${links.CREDITO_REMOTO_ADM}/${maquinaInfos.id}, {
+                state: location.state,
+              });
+            }}
+          >
+            <AiFillDollarCircle />
+            <span>Credito Remoto</span>
+          </Button>
+          <Button
+            className="Admin_PagamentosSearch_header_editBtn"
+            onClick={() => {
+              navigate(${links.GRUA_ADM}/${maquinaInfos.id}, {
+                state: location.state,
+              });
+            }}
+          >
+            <AiOutlineEdit />
+            <span>CONFIGURAR GRUA</span>
+          </Button>
+          
+          <div className="Admin_PagamentosSearch_datePicker">
+            <FontAwesomeIcon
+              style={{ marginBottom: "2px", marginRight: "2px" }}
+              icon={faSearch}
+              onClick={() => getPaymentsPeriod(dataInicio, dataFim)}
+            />
+            <RangePicker
+              style={{ border: "1px solid", borderRadius: "4px" }}
+              placeholder={["Data Inicial", "Data Final"]}
+              onChange={(dates, dateStrings) => {
+                setDataInicio(dateStrings ? dateStrings[0] : null);
+                setDataFim(dateStrings ? dateStrings[1] : null);
+              }}
+            />
+          </div>
+          <Button
+            className="Admin_PagamentosSearch_header_editBtn"
+            onClick={() => onRelatorioHandler()}
+          >
+            <img
+              style={{ width: "20px", marginRight: "2px" }}
+              src={notes}
+              alt="notes"
+            />
+            <span>Relatório</span>
+          </Button>
+          <Button
+            className="Admin_PagamentosSearch_header_editBtn"
+            onClick={() => {
+              navigate(${links.CLIENTES_MAQUINAS_TROCAR}/${id}, {
+                state: location.state,
+              });
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faArrowsRotate}
+              style={{ marginRight: "2px" }}
+            />
+            <span>ID</span>
+          </Button>
+        </div>
+        <Button
+          className="Admin_PagamentosSearch_header_back"
+          onClick={() =>
+            navigate(${links.CLIENTES_MAQUINAS}/${clienteInfo.id}, {
+              state: location.state.clienteInfo,
+            })
+          }
+        >
+          VOLTAR
+        </Button>
+      </div>
+      <div className="Admin_PagamentosSearch_body">
+        <div className="Admin_PagamentosSearch_content">
+          <div
+            className="Admin_PagamentosSearch_titleList_main"
+            style={{ marginBottom: "2px" }}
+          >
+            <div className="Admin_PagamentosSearch_titleList">
+              <div style={{ marginLeft: "2px" }}>Total</div>
+              <div className="Admin_PagamentosSearch_nbList">
+                {Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(total)}
+              </div>
+              <div style={{ marginLeft: "1px" }}>Estornos</div>
+              <div className="Admin_PagamentosSearch_nbList">
+                {Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(estornos)}
+              </div>
+              <div style={{ marginLeft: "1px" }}>Espécie</div>
+              <div className="Admin_PagamentosSearch_nbList">
+                {Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(cash)}
+              </div>
+
+              <div style={{ marginLeft: "1px" }}>ID</div>
+              <div className="Admin_PagamentosSearch_nbList">
+                {maquinaInfos.store_id}
+              </div>
+              <div style={{ marginLeft: "1px" }}>RELOGIO CREDITO</div>
+              <div className="Admin_PagamentosSearch_nbList1">
+                {formatNumberWithLeadingZeros(contadorcredito, 6) ?? "-"}
+              </div>
+              <div style={{ marginLeft: "1px" }}>RELOGIO PELUCIA</div>
+              <div className="Admin_PagamentosSearch_nbList1">
+                {formatNumberWithLeadingZeros(estoque, 6) ?? "-"}
+              </div>
+            </div>
+
+            {maquinaInfos.store_id && (
+              <Link
+                target="_blank"
+                to={https://www.mercadopago.com.br/stores/detail?store_id=${maquinaInfos.store_id}}
+              >
+                <img
+                  className="Admin_PagamentosSearch_QR_Icon"
+                  src={qr_code_icon}
+                  alt="QR"
+                />
+              </Link>
+            )}
+          </div>
+          <div className="Admin_PagamentosSearch_description">
+            {${maquinaInfos?.nome} - ${maquinaInfos?.descricao}}
+          </div>
+
+          <Table
+            columns={columns}
+            dataSource={listCanals}
+            pagination={false}
+            loading={loadingTable}
+            locale={{
+              emptyText:
+                searchText.trim() !== "" ? (
+                  "-"
+                ) : (
+                  <div>Não foram encontrados resultados para sua pesquisa.</div>
+                ),
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 };
-
-export default AdminPagamentosSearch;
